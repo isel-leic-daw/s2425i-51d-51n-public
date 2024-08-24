@@ -1,0 +1,52 @@
+= Course Introduction
+
+== Main goal
+
+Provide the students with the knowledge and ability to design and develop HTTP APIs and browser-based applications that use those APIs.
+
+== Short Syllabus
+
+* The Spring framework and server-side software organization.
+* HTTP API design.
+* Introduction to browser-based applications.
+* The TypeScript language.
+* The React library for browser-based applications.
+
+== Evaluation
+
+The course final grade is computed from the following two parts:
+
+* 60% - final individual written test, done on the regular exam dates. A minimum grade of 9.5 is required.
+* 40% - single project divided into two-phases.
+
+** There will be a grade per project phase, assigned after a final presentation and discussion.
+** The projects are done by groups of 3 students.
+** Project delivery is done via the student group Git repository.
+
+The project is divided into two phases:
+
+* Phase 1: design the HTTP API and implement it using the Spring framework.
+* Phase 2: create a browser-based application using the API.
+
+Presentations and discussions
+
+* Mid-term presentation of the phase 1 delivery, on week 7.
+* Final-term presentation and discussions of the final project delivery, on week 14 and 15.
+
+== Calendar
+
+* See link:../calendar.md[Calendar]
+
+== Resources
+
+* See link:../resources.md[Resources]
+
+== Other
+
+The lecturer will use the Kotlin language for the server-side subjects. 
+
+* However, students are free to use the Kotlin language or the Java language instead.
+
+Students are expected to have a good knowledge of both the Kotlin (or Java) and Javascript programming languages.
+
+* E.g. by having successfully completed the IPW and LS courses.
