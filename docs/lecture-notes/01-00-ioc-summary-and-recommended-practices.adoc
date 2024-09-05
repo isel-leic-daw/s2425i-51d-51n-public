@@ -1,0 +1,70 @@
+= Inversion of Control and Dependency Injection: Summary and Recommended Practices
+
+== Summary
+
+* _Inversion of Control_ is the design technique where a class receives its dependencies instead of creating them.
+** _Dependencies_ are the external types that a class needs to perform its function.
+** _Inversion of Control_ provides more flexibility in how classes are used, because the usage context can decide which concrete dependencies to use.
+*** E.g. Use different concrete dependencies on an application usage or on a unit test usage.
+** This flexibility is made possible if the dependencies are defined as interfaces and not as concrete (i.e. non-abstract) classes.
+
+* _Dependency Injection_ is the act of providing the dependencies to the class instance that needs them.
+** _Constructor Injection_ happens when those dependencies are provided as constructor arguments.
+** _Property Injection_ happens when those dependencies are provided by assigning properties to them, after the _dependant_ instance is created.
+
+* _Dependency Injection Container_ is the _thing_ (e.g. class instance) that knows how to create instances and inject all the dependencies into them.
+** The use of the inversion of control design principle does not require the use of a dependency injection container. Dependencies can be provided, i.e. injected, manually.
+
+* _Dependency Graph_
+** Consider type `A` that depends on types `B` and `C`.
+** Types `B` and `C` can also have their own dependencies, for instance, types `D` and `E`, and types `F` and `G`, respectively.
+** These types and their dependencies define a directed graph, where types (or instances) are the nodes and dependency relations are the edges.
+** When using constructor injection
+*** To construct an instance of `A` we need to construct instances of `B` and `C`.
+*** However, to construct an instance of `B` we need to first construct instances of `D` and `E`.
+*** And to construct an instance of `C` we need to first construct instances of `F` and `G`.
+** Computing the construction order and calling the constructors can be done automatically by a container, based on the dependency graph, or can be made by explicitly written application code (i.e. non-automatically).
+
+== Recommended Practices
+
+* Components should use the inversion of control principle, however they should (mostly) *not depend* on a specific container or automatic dependency injection technology.    
+** Why?
+*** To enable unit testing without the need to use the container, i.e, by using _manual_ dependency injection.
+*** To enable usage with different container technologies.
+** What does this mean?
+*** Avoid depending or using container specific types or functions.
+*** An example is depending on the container itself.
+** There are situations were it may be unavoidable to depend on the specific container technology. Always triple-check if that is the case.
+** An example where we need to use container specific technology is in the use of the `@Component` annotation to include a class in the component scan procedure.
+
+* Always prefer constructor injection instead of property injection.
+** Why?
+*** So that the component instance is immediately usable after construction, because it already has all the necessary dependencies.
+*** So that the dependencies are immutable non-nullable references.
+*** Note that when using property injection, there is a time interval where the instance is created but isn't yet usable because the dependencies haven't been provided to it yet. In addition, property injection requires the dependency fields to be mutable, with all the mutability consequences.
+
+** Only use property injection when constructor injection is not possible. An example is on JUnit test classes, because the instance creation is done by JUnit and not the DI container. I.e., the container doesn't control the instance creation, so the injection needs to be done at a later stage.
+
+* Not all object instances in a system will be created and managed by a DI container.
+Designing a software system that uses IoC and a DI container requires having this distinction clearly defined for all types. For this, it is convenient to consider that objects play different roles on a system.
+
+** For instance, some objects are just containers of functions, typically used via interface references, providing a set of related functionality. It is common to call these objects as _services_ (or _service providers_) These objects typically form a graph, since a service provider may use other service providers to implements its functionality.
+
+** Other objects are just holders of structured data (e.g. `data class` construction in Kotlin).
+
+** It is common for service providers to be provided via and DI injection while data holders are explicitly created by application code or framework code and passed via function arguments.
+
+** Consider a typical Spring MVC controller example.
+
+*** The controller can be considered a service provider, exposing functions that the MVC framework uses to handle HTTP requests.
+*** The controller may use other services to implement its own functionality, such as services to implement domain logic or access external data repositories. These other services instances are typically managed by the Spring context and provided via constructor injection.
+
+*** The controller's handlers receive objects representing the incoming HTTP request message and the HTTP response message that will be produced. These objects are mostly data holders and are not managed by the Spring context.
+
+* _Scopes_ define when new container managed objects should be created or instead reused between multiple injections.
+
+** A scope example is when the same instance is used for all managed objects that depend on that instance type. Spring context calls this the _singleton_ scope and is the scope used by default.
+
+** Another scope example is when a new "fresh" instance is always created for each new injections. Spring context calls this the _prototype_ scope.
+
+** Sharing of the same instance between multiple injections typically requires the injected instances to be thread-safe, since the same instance will typically be used on multiple threads.

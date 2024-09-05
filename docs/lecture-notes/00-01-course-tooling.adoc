@@ -1,0 +1,19 @@
+= Tools used during the course
+
+* Java installation.
+** Java 21.
+** E.g. link:https://aws.amazon.com/corretto/[Corretto] distribution from AWS, link:https://www.azul.com/downloads/?package=jdk#zulu[Zulu] distribution from Azul.
+** link:https://sdkman.io[SDKMAN] is a tool to help download and manage Java versions.
+
+* IDE: link:https://www.jetbrains.com/idea/download/[IntelliJ Community Edition].
+** Note: The Community edition is freely available while the Ultimate edition requires a license.
+
+* link:https://git-scm.com/downloads[Git client].
+
+* link:https://www.docker.com/products/docker-desktop/[Docker Desktop].
+
+* For Javascript and Typescript development we will use link:https://code.visualstudio.com/[Visual Studio Code (VSC)].
+** link:https://marketplace.visualstudio.com/items?itemName=humao.rest-client[Rest Client] is a nice VSC extension to do HTTP requests and visualize HTTP responses.
+
+* For frontend development we also need the link:https://nodejs.org[node and NPM] tools.
+** link:https://github.com/nvm-sh/nvm[Node Version Manager] is a nice tool to help download and manage multiple node versions.
