@@ -1,0 +1,50 @@
+= JVM development environment
+
+== Introduction
+
+This guide has the goal of ensuring all the tools required for the first part of the course are installed and working properly on the student's machines.
+
+== Steps
+
+* Make sure the following tools are installed.
+** link:https://git-scm.com/downloads[Git client].
+** Java 21.
+** IntelliJ.
+** See link:../lecture-notes/00-01-course-tooling.adoc[course tooling].
+
+[source, bash]
+----
+git clone git@github.com:isel-leic-daw/s2425i-51d-51n-public.git
+----
+
+* Move into the `s2425i-51d-51n-public/code/jvm` folder.
+
+[source, bash]
+----
+cd s2425i-51d-51n-public/code/jvm
+----
+
+* Run the `check` task, which
+** Fetches the dependencies.
+** Compiles the source code.
+** Runs the tests.
+** Checks the code style.
+
+* Ensure the previous task execution is successful. 
+
+[source, bash]
+----
+./gradlew check
+----
+
+* Ensure the course repository can be updated with the latest changes.
+
+[source, bash]
+----
+git pull
+----
+
+* Open the project located on `code/jvm`.
+** Inside IntelliJ, open the file `code/jvm/build.gradle.kts` as a project.
+* Run all the programs located in the `code/jvm/spring-context/src/main/kotlin/pt/isel/daw` folder and sub-folders, from inside IntelliJ.
+* Run all the tests located in the `code/jvm/spring-context/src/test/kotlin/pt/isel/daw` folder and sub-folders, from inside IntelliJ.
