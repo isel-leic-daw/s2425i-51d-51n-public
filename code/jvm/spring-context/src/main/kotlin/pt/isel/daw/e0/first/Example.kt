@@ -6,15 +6,23 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 private val log = LoggerFactory.getLogger("main")
 
+/*
+ * Introductory example to Spring Context and the concepts of Inversion of Control, dependency injections.
+ */
+
 /**
  * Interface with some functionality.
  */
-interface InterfaceA
+interface InterfaceA {
+    // not relevant for this example
+}
 
 /**
- * Another interface with some functionality.
+ * Another interface with some other functionality.
  */
-interface InterfaceB
+interface InterfaceB {
+    // not relevant for this example
+}
 
 /**
  * An implementation of [InterfaceA].

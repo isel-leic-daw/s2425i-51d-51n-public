@@ -300,7 +300,6 @@ ij_groovy_align_multiline_assignment = false
 ij_groovy_align_multiline_binary_operation = false
 ij_groovy_align_multiline_chained_methods = false
 ij_groovy_align_multiline_extends_list = false
-ij_groovy_align_multiline_for = true
 ij_groovy_align_multiline_list_or_map = true
 ij_groovy_align_multiline_method_parentheses = false
 ij_groovy_align_multiline_parameters = true
@@ -558,6 +557,7 @@ ij_kotlin_while_on_new_line = false
 ij_kotlin_wrap_elvis_expressions = 1
 ij_kotlin_wrap_expression_body_functions = 1
 ij_kotlin_wrap_first_method_in_call_chain = false
+ktlint_function_signature_wrapping_rule_always_with_minimum_parameters=3
 
 [{*.har,*.json}]
 indent_size = 2
