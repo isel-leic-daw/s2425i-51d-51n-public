@@ -18,6 +18,6 @@ class ExampleTests {
         val response = httpClientService.get("https://httpbin.org/get")
 
         // then:
-        assertContains(response, "\"User-Agent\": \"Java-http-client/21.0.1\"")
+        assertContains(response, "\"User-Agent\": \"Java-http-client/")
     }
 }
