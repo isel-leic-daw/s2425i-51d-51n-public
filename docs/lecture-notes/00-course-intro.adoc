@@ -20,6 +20,7 @@ The course final grade is computed from the following two parts:
 * 40% - single project divided into two-phases.
 
 ** There will be a grade per project phase, assigned after a final presentation and discussion.
+** A minimum grade of 8.0 is required on each project phase.
 ** The projects are done by groups of 3 students.
 ** Project delivery is done via the student group Git repository.
 
@@ -40,6 +41,11 @@ Presentations and discussions
 == Resources
 
 * See link:../resources.md[Resources]
+
+== Office hours
+
+* Monday, 15:30 to 17:00 and 18:00 to 18:30.
+* Thursday, 18:30 and 19:30.
 
 == Other
 
