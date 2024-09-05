@@ -14,4 +14,4 @@ jobs:
           java-version: 21
           distribution: temurin
       - name: Build with Gradle
-        run: ./jvm/gradlew -p jvm check --info
+        run: ./code/jvm/gradlew -p code/jvm check --info
