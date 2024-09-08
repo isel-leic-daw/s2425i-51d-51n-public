@@ -3,10 +3,10 @@
 ## Important dates
 
 - Project requirements publication: 2023-09-16 (start of week 2).
-- Project delivery (first phase): 2023-10-19 (end of week 6).
-- Project presentation (first phase): between 2023-10-21 and 2023-10-25 (week 7).
-- Deliver delivery (final): 2023-12-06 (end of week 13).
-- Project presentations and evaluations (final): between 2023-12-09 and 2023-12-20 (weeks 14 and 15).
+- Project delivery - first phase: 2023-10-19 (end of week 6).
+- Project presentation - first phase: between 2023-10-21 and 2023-10-25 (week 7).
+- Project delivery - final: 2023-11-30 (end of week 12).
+- Project presentations and evaluations - final: between 2023-12-02 and 2023-12-20 (weeks 13 to 15).
 
 ## Weeks
 
@@ -24,10 +24,11 @@
 - Organizing and testing backend software.
 
 ## W4 - 2023-09-30
-- The architecture of the Web, the HTTP protocol, and HTTP APIs. 
+- The architecture of the Web, the HTTP protocol, and HTTP APIs.
+- Representation design and the use of hypermedia.
 
 ## W5 - 2023-10-07
-- Representation design and the use of hypermedia.
+- Bidirectional protocols - SSE and WebSockets.
 
 ## W6 - 2023-10-14
 - Project development.
@@ -48,13 +49,13 @@
 - Designing applications using the ReactJS library.
 
 ## W11 - 2023-11-18
-- Bidirectional protocols - SSE and WebSockets.
-
-## W12 - 2023-11-25
 - The nginx reverse proxy and web application deployment.
 
-## W13 - 2023-12-02
+## W12 - 2023-11-25
 - Project development.
+
+## W13 - 2023-12-02
+- Project presentations and evaluations.
 
 ## W14 - 2023-12-09
 - Project presentations and evaluations.
