@@ -1,10 +1,10 @@
 plugins {
-    kotlin("jvm") version "2.0.10"
+    kotlin("jvm")
     id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
 }
 
 group = "pt.isel.daw"
-version = "unspecified"
+version = "0.1.0"
 
 repositories {
     mavenCentral()
