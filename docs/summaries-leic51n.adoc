@@ -1,0 +1,16 @@
+= Summaries LEIC51N
+
+== Lecture 1 - 2024-09-09
+
+* Course introduction
+** Goals.
+** Syllabus.
+** Grading and evaluation.
+** Calendar.
+** Resources.
+** Tooling.
+
+* Lecture resources:
+** link:lecture-notes/00-00-course-intro.adoc[Course introduction].
+** link:lecture-notes/00-01-course-tooling.adoc[Course tooling].
+** link:exercises-and-guides/00-00-jvm-development-environment.adoc[Development environment].
