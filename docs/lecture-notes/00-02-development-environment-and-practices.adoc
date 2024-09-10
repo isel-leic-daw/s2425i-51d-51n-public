@@ -1,0 +1,407 @@
+= Development Environment and Practices
+:toc:
+:toc-title: Table of Contents
+
+== Introduction
+
+This lecture note presents a brief introduction to the development environment and practices used in this course, with emphasis on the first part, namely:
+
+* Build automation and gradle.
+* Style checking, also sometimes called linting.
+* Continuous integration and continuos checking.
+
+== Build automation
+
+The process that takes the source code and external dependencies and produces the project deliverables is called the _build process_.
+It takes as input:
+
+* The source code and other files authored in the context of the project.
+* External dependencies, such as the JDK and external libraries.
+* A definition of the build process, sometimes called the _build script_
+
+The build process output are the project deliverables, which depend on the project type:
+
+* For android applications, the deliverable is typically an APK file (Android Package), that can be uploaded to Play Store.
+* For desktop applications, the deliverable can be an installer such as an link:https://en.wikipedia.org/wiki/Windows_Installer[Windows MSI file] or a link:https://en.wikipedia.org/wiki/Apple_Disk_Image[macOS DMG file].
+* For a server application running on the JVM, the deliverable can be a JAR file or a Docker image.
+
+Sometimes, the output of the build process is not only a set of files but also includes the _publishing_ of those files:
+
+* To link:https://developer.android.com/studio/publish[Play Store], for Android applications.
+* To link:https://central.sonatype.com[Maven Central], for JAR based libraries.
+* To link:https://hub.docker.com[Docker Hub], for docker images.
+
+The build process can be composed by multiple steps, such as:
+
+* Fetching external dependencies.
+* Compiling the source code.
+* Running tests and other checks.
+* Packaging the compile source code artifacts (e.g. `.class` files) into a single or multiple files (e.g. a `JAR` file).
+
+It is important that this build process is fully automated and also runnable from different machines, namely machines other than the developers machine.
+The process automation provides:
+
+* A way to perform the build process in a deterministic way without human intervention, which is important in continuous integration environments.
+* Reduced probability of failure due to human operator error.
+* A way to document the build process.
+
+Integrated Development Environments (IDEs), such as IntelliJ, can also use external build automation tools so that the activities performed by the IDE when building the project or running the tests are delegated to the build automation tools.
+This ensures the build process is always the same, weather it was triggered from inside the IDE or weather it is being run in a continuous integration environment. 
+
+=== Gradle
+
+For JVM-based projects, link:https://gradle.org/[Gradle] is a commonly used build automation tool.
+It can be called directly from the command line and also integrates with IntelliJ, meaning that all build steps, such as running the tests, are delegated by IntelliJ into Gradle.
+This ensures that the build process is always the same, independently of the context where that build process is being triggered.
+
+In link:https://gradle.org/[Gradle], the build process is defined by:
+
+* The _build script_ located in the project's root folder and named `build.gradle` or `build.gradle.kts`.
+** `build.gradle` build scripts use the link:https://groovy-lang.org/[Groovy] programming language.
+** `build.gradle.kts` build scripts use the link:https://kotlinlang.org/[Kotlin] programming language. In this course we will always use Kotlin based build scripts.
+* Plugins that are applied to the project by the build script.
+
+The following code block exemplifies a _build script_.
+[source,kotlin]
+----
+plugins {
+    kotlin("jvm") version "2.0.10"
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
+}
+
+group = "pt.isel.daw"
+version = "0.1.0"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("org.springframework:spring-context:6.1.12")
+    implementation("org.slf4j:slf4j-api:2.0.16")
+    implementation("org.slf4j:slf4j-simple:2.0.16")
+
+    testImplementation(kotlin("test"))
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+kotlin {
+    jvmToolchain(21)
+}
+----
+
+The first part defines the plugins that are used by the build process.
+
+[source, kotlin]
+----
+plugins {
+    kotlin("jvm") version "2.0.10"
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
+}
+----
+
+* The `kotlin` plugin adds the tasks needed to compile and package projects using the Kotlin programming language.
+* The ``org.jlleitschuh.gradle.ktlint`` plugin adds tasks to verify the source code style, via the link:https://pinterest.github.io/ktlint/latest/[ktlint] tool.
+
+An important part of the build script is the definition of the external dependencies that are used.
+
+[source, kotlin]
+----
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("org.springframework:spring-context:6.1.12")
+    implementation("org.slf4j:slf4j-api:2.0.16")
+    implementation("org.slf4j:slf4j-simple:2.0.16")
+
+    testImplementation(kotlin("test"))
+}
+----
+
+* The `repositories` _block_ defines the external repositories that gradle will use to locate and fetch the dependencies.
+In this case the build script adds the link:https://central.sonatype.com[Maven Central] repository. 
+This is the most commonly used repository to store JVM-based libraries. 
+
+* The `dependencies` _block_ defines the required external dependencies. 
+For instance `implementation("org.springframework:spring-context:6.1.12")` states that:
+** There is a dependency identified by the triple:
+*** Organization = `org.springframework`
+*** Library = `spring-context`
+*** Version = `6.1.12`
+** This dependency is an `implementation` dependency, required when compiling and running the main code.
+
+Gradle organizes dependencies by _dependency configurations_, of which `implementation` and `testImplementation` are two examples:
+
+* `implementation` dependencies are used when compiling any _main_ or _test_ source code file and when running the project or tests. This means the dependency will be added to both the compiler's and JVM classpath.
+
+* `testImplementation` dependencies are required when compiling any _test_ source file and when running the tests.
+
+When adding a new external dependency to a project it is always necessary to:
+
+* Add a statement into the `dependencies` _block_, with the proper dependency configuration.
+* Ensure the repository containing the dependency is included in the `repositories` _block_.
+
+[IMPORTANT]
+====
+It is important to be aware of the difference between:
+
+* The use of an `import` statement in a Kotlin file, such as `import org.springframework.context.annotation.AnnotationConfigApplicationContext`
+
+* And the use of the `implementation("org.springframework:spring-context:6.1.12")` statement in a build script.
+
+The `import` statement just introduces an alias in the file where it is located, allowing the `org.springframework.context.annotation.AnnotationConfigApplicationContext` class to be referenced by its `AnnotationConfigApplicationContext` simple name.
+The `import` statement does _not_ result in locating and fetching the dependency from an external repository or adding a JAR into the classpath.
+
+The `implementation` statement instructs Gradle to locate, download, and make a JAR available in the classpath, namely the JAR file containing the `org.springframework.context.annotation.AnnotationConfigApplicationContext` class.
+Without this `implementation` statement compilation would fail because the class would not be found in the classpath, independently of the `import` statement being present in the source code.
+It is the `implementation` statement in the build script that promotes the inclusion of the JAR containing the required class in the build process and not the `import` statement in the source code.
+====
+
+=== Gradle tasks
+
+In Gradle, the build process is defined by _tasks_.
+A task has an input, which is typically one or more files (e.g. Kotlin source files), and an output, which is also typically one or more files (e.g. the `.class` files resulting from the compilation process).
+Tasks can depend on other tasks: if task `t1` depends on task `t2`, then task `t2` needs to be executed before task `t1` is executed.
+The set of tasks forms an acyclic graph, where the nodes are the tasks and the edges are the task dependencies.
+Gradle uses this graph to determine the task execution order.
+
+Executing a task can be done in a command line by `./gradlew <task-name>`.
+This will run the task with the provided name, as well as all the tasks from which it depends.
+
+Tasks can be defined directly in a build script or can be added via a plugin.
+For instance, the `kotlin` plugin adds tasks to compile, package, and test Kotlin-based projects:
+
+* The `compileKotlin` task compiles the _main_ Kotlin source code files into `.class` files.
+* The `compileTestKotlin` task compiles the _test_ Kotlin source code files into `.class` files.
+* The `assemble` task creates the project deliverables (e.g. a JAR file).
+* The `build` task runs the tests and creates the project deliverables.
+* The `check` task runs all the checks, including the tests.
+
+The list with all the task can be presented by running the `tasks` task - `./gradlew tasks --all`.
+
+Tasks are also implicitly executed when invoking certain commands from inside IntelliJ.
+
+Tasks added by plugins can also introduce configuration blocks that can be used in build scripts to configure the task behavior.
+For instance the following block configures how tests should be executed.
+
+[source, kotlin]
+----
+tasks.test {
+    useJUnitPlatform()
+}
+----
+
+Applying plugins is the most common way of adding tasks to a project.
+However, it is also possible to define tasks explicitly in the build script file.
+The following script illustrates such definition.
+
+[source, kotlin]
+----
+tasks.register("demoTask") {
+    group = "Demo"
+    description = "Just a demo task to illustrate task definition and execution"
+    println("demoTask definition")
+    doLast {
+        println("demoTask execution")
+    }
+}
+
+tasks.register("anotherDemoTask") {
+    group = "Demo"
+    description = "Just another demo task to illustrate task definition and execution"
+    dependsOn("demoTask")
+    println("anotherDemoTask definition")
+    doLast {
+        println("anotherDemoTask execution")
+    }
+}
+----
+
+The `register` function adds a new task to the `tasks` container.
+The task _definition_ is provided by the lambda expression passed as the second argument.
+The `dependsOn` function adds a dependency between the task being defined and another task.
+The `doLast` defines the function to execute when the task is executed.
+
+Running `./gradlew tasks` will now show a `Demo tasks` group.
+
+[source, bash]
+----
+Demo tasks
+----------
+anotherDemoTask - Just another demo task to illustrate task definition and execution
+demoTask - Just a demo task to illustrate task definition and execution
+----
+
+Running `./gradle demoTask` will run the first task.
+
+[source, bash]
+----
+> Task :gradle-intro:demoTask
+demoTask execution
+----
+
+Running `./gradle anotherDemoTask` will run both tasks, since `anotherDemoTask` depends on `demoTask`.
+
+[source, bash]
+----
+> Task :gradle-intro:demoTask
+demoTask execution
+
+> Task :gradle-intro:anotherDemoTask
+anotherDemoTask execution
+----
+
+==== Task definition versus task execution
+
+Running `./gradle tasks` will print the following messages present in the outer lambda, even if those tasks were were not being asked to run.
+[source, bash]
+----
+demoTask definition
+anotherDemoTask definition
+----
+
+Running `./gradle anotherDemoTask` will print all the messages.
+
+[source, bash]
+----
+anotherDemoTask definition
+demoTask definition
+
+> Task :gradle-intro:demoTask
+demoTask execution
+
+> Task :gradle-intro:anotherDemoTask
+anotherDemoTask execution
+
+BUILD SUCCESSFUL in 531ms
+2 actionable tasks: 2 executed
+----
+
+This behavior is due to a Gradle build being divided into link:https://docs.gradle.org/current/userguide/build_lifecycle.html[three phases].
+
+* The initialization phase.
+* The configuration phase.
+* The execution phase.
+
+In the configuration phase, the outer lambdas _defining_ all the tasks are run (e.g. to get the task's group and description), however the inner lambdas, passed to `doLast` are not run.
+In this configuration phase, Gradle collects the definition of all tasks, namely to build the task graph.
+The inner lambdas, provided via the `doLast` call are run in the execution phase, and only for the tasks that effectively need to be executed.
+
+=== Multi-module builds
+
+Gradle allows the division of a project into link:https://docs.gradle.org/current/userguide/multi_project_builds.html[_sub-projects_], also called _modules_.
+Each sub-project has its own build script (i.e. `build.gradle` or `build.gradle.kts` file) and produces its own deliverables.
+Creation of a sub-project is achieved by:
+
+* Creating a sub-folder with the project name and adding a build script to that sub-folder.
+* Adding the following to the `settings.gradle.kts` (or `settings.gradle`) file located in the root folder
+
+[source, kotlin]
+----
+include("<path-to-the-sub-project-folder>")
+----
+
+Running a task for a specific sub-project is achieved by the following syntax:
+
+[source, bash]
+----
+include(":<path-to-the-sub-project-folder>:<task-name>")
+----
+
+Gradle sub-projects are useful to modularize a project, creating structure and limiting the visibility of the produced code.
+An example would be a project with the following sub-projects:
+
+* `lib`, producing a library JAR, i.e. a JAR without a define entrypoint.
+* `cli-app1`, with a command line application, using the library produced by `lib`.
+* `server1`, with a HTTP server application, using the library produced by `lib`.
+
+Using sub-projects has the following advantages:
+
+* The `lib` source code does not need to have any visibility on the two application source code.
+* The deliverables produced by `cli-app1` only includes code coming from `lib` and from `cli-app1`.
+Namely, it does not include any code from `server1`.
+* Similarly, the `server1` deliverables also don't include any code from `cli-app1`.
+
+== Syntax style rules and enforcement
+
+In most languages, namely Kotlin and Javascript, there are multiple syntactical ways of writing the same expression or statement.
+
+* Identifiers composed by multiple words can be created in different ways (e.g. camelCase, PascalCase, snake_case).
+* Spaces can be inserted or removed between lexicographical tokens.
+* Lines can end in different places in the middle of an expression or statement
+
+This differences are not relevant to the compiler and do not change the compilation result or execution result, however they may have different human readability properties.
+This variability results in different _styles_ of writing the same programs.
+
+In the context of the same project, there are advantages in using a common style between all people involved in it.
+
+* Making sure all the produced code has the readability properties of the adopted style.
+* When analyzing the difference between commits, avoid the differences that are only due to stylistic changes, so that the focus can be placed in the significant changes.
+** E.g. programmer A always inserts the `{` starting a block in a new line, while programmer B inserts the opening `{` at the end of the previous line. If programmer B fixes a problem in a function written by programmer A the difference may include multiple line changes that only due to programmer B applying their stylistic preferences and which aren't related to problem being solved.
+
+A _linter_ is a tool that can check if the source code follows a defined style, among other things.
+Linters can be used in the build process to check that all the source files follow the agreed stylistic rules and fail the build if they don't.
+This is a good way to ensure the code base remains readable and doesn't slowly drift into a patchwork of different styles.
+
+In this course we use the link:https://pinterest.github.io/ktlint/latest/[ktlint] linter to check the Kotlin source code style, via the link:https://github.com/jlleitschuh/ktlint-gradle[org.jlleitschuh.gradle.ktlint] gradle plugin.
+When this plugin is installed in a project, it makes the `check` task depend on a task that runs `ktlint`.
+This way, when running `./gradlew check`, the style rules will be verified along side all the other project checks, such as running the tests.
+
+Some of the style rules verified by ktlint can be configured via a link:https://editorconfig.org[`.editorconfig`] file, typically placed in the project's root folder.
+This way the style definition is a part of the project itself, ensuring all the project member's use the same style rules.
+Another advantage of using a `.editorconfig` file is the IntelliJ integration: when running the IntelliJ's `Reformat Code` command, the style rules applied will be obtained from that file.
+
+== Continuous integration and continuous check
+
+_Continuous Integration_ is sometimes link:https://en.wikipedia.org/wiki/Continuous_integration[defined] as 
+[quote]
+(...) the practice of integrating source code changes frequently and ensuring that the integrated codebase is in a workable state.
+
+An important aspect of continuous integration is the constant checking that the project is in a valid state and the trigger of some kind of error message when it isn't.
+When using Gradle this translates into running the `check` task and seeing if the result was successful or not.
+
+A way to perform this constant checking is by having an external system that:
+
+* Detects changes to the source code in a shared repository, such as _pushes_ into a GitHub repository.
+* Triggers the execution of verification tasks when those changes happens.
+* Notifies the development team when the verification outcome is not successful.
+
+link:https://docs.github.com/en/actions[GitHub actions] provides a way to implement this continuous checking, by providing _workflows_ that are triggered by changes in the repository.
+These workflows are defined in the repository content itself, by creating YAML files inside the `.github/workflows` folder.
+
+The following file defines an example workflow
+
+[source, yaml]
+----
+name: Continuous Check
+
+on: [push]
+
+jobs:
+  build:
+    name: Continuous Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+      - name: Build with Gradle
+        run: ./code/jvm/gradlew -p code/jvm check --info
+----
+
+This file defines a workflow named `Continuous Check` that runs each time there is a push to one of the branches in the repository.
+The workflow execution is composed by a _job_ with the identifier `build` and the `Continuous Check` name, with the following steps:
+
+* Checking out of the pushed commit contents, i.e., the project content.
+* Installing a Java 21 distribution (the `temurin` distribution in this case).
+* Running the `check` Gradle task. If this task fails, then the  work flow also fails.
+
+By default workflow failures result in the sending of emails to all the project participants.
+The workflow results can also be seen in the GitHub web interface (e.g. link:https://github.com/isel-leic-daw/s2425i-51d-51n-public/actions[https://github.com/isel-leic-daw/s2425i-51d-51n-public/actions].)
