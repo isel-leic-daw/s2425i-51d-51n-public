@@ -1,0 +1,29 @@
+= Servlets
+
+
+The servlet API (interfaces and base classes) was initially defined by link:https://www.oracle.com/java/technologies/java-ee-glance.html[Java Enterprise Edition] as a way to allow interoperability between 
+
+* server-level software that is responsible for the _network_ layer of HTTP processing, namely socket management and message deserialization and serialization.
+* application-level software that is ultimately responsible for consuming the contents of an already deserialized request and produce a response.
+
+Currently, this API is maintained by project [Jakarta](https://projects.eclipse.org/projects/ee4j).
+
+The HTTP servlet API is based on two main abstract types:
+
+* link:https://jakarta.ee/specifications/servlet/5.0/apidocs/jakarta/servlet/http/httpservlet[``HttpServlet``] - responsible for ultimately handling an HTTP request by populating an ``HttpServletResponse`` using information from a ``HttpServletRequest``.
+
+* link:https://jakarta.ee/specifications/servlet/5.0/apidocs/jakarta/servlet/http/httpfilter[``HttpFilter``] - contributes to the handling of HTTP responses, by using the request's information, present in an `HttpServletResponse` instance, and eventually mutating an ``HttpServletResponse`` _before_ and _after_ the request is handled by a server. Multiple filters are organized in a pipeline.
+
+The link:https://eclipse.dev/jetty/[Jetty] and link:https://tomcat.apache.org/[Tomcat] projects provide servers that _implement_ the Servlet API.
+
+The link:https://docs.spring.io/spring-framework/reference/web/webmvc.html[Spring Web MVC] is a project that _uses_ the Servlet API to implement high-level server functionalities, such as routing and request and response binding.
+An application using link:https://docs.spring.io/spring-framework/reference/web/webmvc.html[Spring Web MVC] can be seen as a stack where:
+
+* In the bottom layer is a Servlet server.
+* In the middle layer is Spring Web MVC.
+* In the upped layer is the specific-application code.
+
+See: link:../../code/jvm/servlet-intro[servlet-intro] code example, namely:
+
+* The ``ExampleServlet`` and ``ExampleFilter``, which are _independent_ of the concrete used server.
+* The ``Jetty.kt`` and ``Tomcat.kt`` ``main`` functions that configure a server and register instance of the servlet and filter.

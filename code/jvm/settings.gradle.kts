@@ -4,3 +4,4 @@ plugins {
 }
 include("spring-context")
 include("gradle-intro")
+include("servlet-intro")
