@@ -1,4 +1,5 @@
 = Summaries LEIC51N
+:toc:
 
 == Lecture 1 - 2024-09-09
 
@@ -15,3 +16,23 @@
 ** link:lecture-notes/00-01-course-tooling.adoc[Course tooling].
 ** link:exercises-and-guides/00-00-jvm-development-environment.adoc[Development environment].
 
+== Lecture 2 - 2024-09-12
+
+* Development environment
+** Build automation and gradle.
+** Style checking.
+** Continuous integration and continuous checking.
+* Inversion of control, dependency injection, and associated containers.
+** Classes as holders of functions.
+** Breaking down an application into multiple components.
+** The Inversion of control principal, in which a components receives what it needs to operate and is not responsible for its instantiation.
+** Dependencies and dependency injection via constructors.
+** The Spring context container.
+*** Type registration.
+*** Component scanning.
+*** _Bean_ functions.
+** Examples.
+* Lecture resources:
+** link:lecture-notes/00-02-development-environment-and-practices.adoc[Development environment and practices].
+** link:lecture-notes/01-00-ioc-summary-and-recommended-practices.adoc[IoC summary and recommended practices].
+** link:../code/jvm/spring-context[Spring context code examples].
