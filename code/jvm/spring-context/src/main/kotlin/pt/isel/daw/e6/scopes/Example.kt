@@ -45,6 +45,6 @@ fun main() {
     log.info("Get a component.")
     val d = context.getBean<ComponentD>()
 
-    log.info("ComponentA instances are different: {}", setOf(d.a, d.b.a, d.c.a).size == 3)
-    log.info("ComponentB instances are the same: {}", setOf(d.b, d.c.b).size == 1)
+    log.info("Number of instances of A: {}", setOf(d.a, d.b.a, d.c.a).size)
+    log.info("Number of instances of B: {}", setOf(d.b, d.c.b).size)
 }

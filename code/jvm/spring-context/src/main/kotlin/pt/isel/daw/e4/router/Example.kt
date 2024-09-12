@@ -68,7 +68,7 @@ class SpringContextBasedControllerProvider(
 class Router(
     controllerProvider: ControllerProvider,
 ) {
-    val controllers = controllerProvider.controllers
+    val controllers: List<Any> = controllerProvider.controllers
 }
 
 private fun main() {
