@@ -23,5 +23,6 @@ class ExampleTests {
         assertEquals("Salut", translator.translate("Hello", "fr"))
         assertEquals("Hallo", translator.translate("Hello", "de"))
         assertEquals("Hallo", translator.translate("Hello", "nl"))
+        assertEquals("Moi", translator.translate("Hello", "fi"))
     }
 }
