@@ -38,6 +38,7 @@ A channel will also have:
 - An unique and stable identifier.
 - A user visible name, which can change but must be unique.
 - Access control rules.
+
 A message is mainly defined by a text string, and should also be associated to:
 - The user that created the message.
 - The channel on which it is present (a message is present in one and only one channel).
