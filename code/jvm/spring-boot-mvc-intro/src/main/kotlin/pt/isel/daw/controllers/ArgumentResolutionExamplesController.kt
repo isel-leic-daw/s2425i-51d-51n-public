@@ -1,4 +1,4 @@
-package pt.isel.daw
+package pt.isel.daw.controllers
 
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.validation.Valid
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import pt.isel.daw.ClientIp
 
 // See https://beanvalidation.org for the Length and Min annotations.
 data class StudentInputModel(
@@ -99,4 +100,9 @@ class ArgumentResolutionExamplesController {
         @PathVariable bid: String,
         req: HttpServletRequest,
     ) = "handler7 with aid=$aid and bid=$bid"
+
+    @GetMapping("8")
+    fun handler8(
+        clientIp: ClientIp,
+    ) = "handler8, clientIp=${clientIp.ipAddress}"
 }

@@ -163,4 +163,20 @@ class ArgumentResolutionTests {
             .exchange()
             .expectStatus().isBadRequest
     }
+
+    @Test
+    fun `using a argument resolver`() {
+        // given: a test client
+        val testClient = WebTestClient.bindToServer().baseUrl("http://localhost:8080").build()
+
+        // when: doing a POST with a valid body
+        // then: the response is an OK with the expected string
+        testClient
+            .get()
+            .uri("/examples-ar/8")
+            .exchange()
+            .expectStatus().isOk
+            .expectBody<String>()
+            .isEqualTo("handler8, clientIp=127.0.0.1")
+    }
 }

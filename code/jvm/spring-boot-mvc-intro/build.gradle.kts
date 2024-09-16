@@ -18,6 +18,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("net.glxn:qrgen:1.4")
 
     // To use WebTestClient on tests
     testImplementation("org.springframework.boot:spring-boot-starter-test")
