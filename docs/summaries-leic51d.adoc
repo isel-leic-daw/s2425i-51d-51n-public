@@ -36,3 +36,23 @@
 ** link:lecture-notes/00-02-development-environment-and-practices.adoc[Development environment and practices].
 ** link:lecture-notes/01-00-ioc-summary-and-recommended-practices.adoc[IoC summary and recommended practices].
 ** link:../code/jvm/spring-context[Spring context code examples].
+
+== Lecture 3 - 2024-09-16
+
+* The servlet specification.
+** Goals and historical context.
+** The link:https://jakarta.ee/specifications/servlet/4.0/apidocs/javax/servlet/http/httpservlet[`HttpServlet`] abstract class and HTTP request handling.
+** The link:https://jakarta.ee/specifications/servlet/4.0/apidocs/javax/servlet/http/httpfilter[`HttpFilter] abstract class and the _filter pipeline_.
+
+* Introduction to the link:https://docs.spring.io/spring-framework/reference/web/webmvc.html[Spring MVC framework].
+** Creating a base project using link:https://start.spring.io/[Spring Initializr].
+*** The generated Gradle build script and its plugins and dependencias.
+** Application start.
+** Controllers and handlers
+*** Mapping between requests and handlers.
+*** See link:../code/spring-mvc-demo[MVC demo].
+
+* Lecture resources:
+** link:lecture-notes/01-01-servlets.adoc[Servlets].
+** link:exercises-and-guides/01-00-spring-boot-mvc.adoc[Spring Boot and Spring MVC].
+** link:https://docs.spring.io/spring-framework/reference/web/webmvc.html[Spring MVC framework].

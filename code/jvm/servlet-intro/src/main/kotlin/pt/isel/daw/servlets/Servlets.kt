@@ -33,6 +33,7 @@ class ExampleServet : HttpServlet() {
         // QUESTION what happens if 'charset=utf-8' is removed
         // QUESTION what happens if 'Content-Type' is set to 'application/json'
         response.addHeader("Content-Type", "text/plain; charset=utf-8")
+        response.addHeader("Example-Header", "Example-Value")
         response.outputStream.apply {
             write("Olá mundo".toByteArray(Charsets.UTF_8))
             flush()
