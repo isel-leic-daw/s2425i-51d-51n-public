@@ -1,0 +1,176 @@
+= Backend Code organization
+
+== Introduction
+
+This document introduces the organization used in the course's projects.
+
+The organization principles presented in this document are not the only valid way of organizing the type of system developed in this course.
+It is not our goal to present the "only true way" of designing and organizing software. 
+
+Independently of the used design principles, it is important to be explicit about the organization used on a project, as a way to help project development, maintainability, and evolution:
+
+* Identify the responsibilities of each type and function in the code base, via the group where is is contained.
+* Characterize the dependencies that can be created in the code base, i.e., which types and functions is another type or function allowed to use.
+* Help pinpoint the types and functions that need to be changed or added, when a defect needs to be corrected, a new feature needs to be added, or a domain rule needs to be changed.
+
+== System organization
+
+The overall system is composed by two main components:
+
+* The _frontend_ component, running in the end-users devices, mainly responsible for the user interface.
+* The _backend_ component, running outside the end-users devices (e.g. in a data center), mainly responsible for storing the relevant domain data and providing the domain functionality.
+** E.g. Storing the state for each ongoing or completed game.
+** E.g. Providing operations to apply turn plays to ongoing games.
+The front component communicates with the backend component using the HTTP protocol, namely by using an HTTP API (Application's Programming Interface), exposed by the backend.
+At the beginning, this communication follows a request-response pattern, where requests are always produced by the frontend and responses are always produced by the backend.
+
+One of the used design principles is making the backend responsible for almost (if not all) domain-related decisions in the system.
+The main goals of this design are:
+
+* Ensuring the correctness of the system, namely that the domain rules are always applied, depends on the correctness of the backend component and not of the frontend components. As an example, it should be impossible for a tampered frontend instance to transition a game into an invalid state or execute an invalid operation.
+* Improving the evolution of the system, where domain rules need to be changed, by minimizing the amount of changes that need to be done on the frontend components. 
+
+It is important to note that frontend components:
+
+* Run in devices controlled by end users and therefore may execute malicious actions.
+* Have update and versioning procedures which can take more time to complete, such as the need to submit a new version to an application store, wait for its approval, and wait for the end users install the new versions.
+* May be implemented by different teams using different technologies:
+** E.g. browser-based application using Typescript and React.
+** E.g. android-based native application using Kotlin and Jetpack Compose.
+
+== Backend organization
+
+The backend component is composed by two sub-components:
+* A Relational Data Base Management System (RDBMS), holding a relational database with the systems persisted information.
+* An application running in the Java Virtual Machine, exposing the HTTP API for consumption by the frontend and performing interactions with the RDBMS.
+
+=== Backend application organization
+
+The backend application is a JVM-based application, written using the Kotlin Programming Language.
+It is composed by a set of classes and functions, organized into *four main groups*:
+
+* Repository group - contains functions and types to interact with the RDBMS and its database.
+* Services group - contains functions and types providing domain operations, such as creating an user, creating a game, or making a turn play on a game.
+* Domain group - contains functions and types representing domain concepts.
+* HTTP group - contains functions and types responsible for exposing and implementing the HTTP API.
+
+=== The domain group
+
+The domain group is composed by types and functions that represent domain concepts, such as a user, a stored token, or a game.
+One of its distinct properties is that the domain group _does not_ depend on types and functions of any of the other groups.
+
+The types and functions of the domain group define a _domain language_ used by all other groups. 
+
+=== The repository group
+
+The repository group defines types and functions to interact with the persisted data namely the data managed by the RDBMS.
+It is composed by:
+
+* Interfaces that define the signature of the interactions with the persisted data.
+* Concrete classes that implement these interfaces, for one or more ways of ways of persisting, changing, and querying data.
+
+The repository group classes and functions may use items from the domain group, however they should not use anything from the other groups (services and HTTP).
+
+The repository group is designed to support multiple implementations, such as:
+
+* One implementation using JDBC to interact with a PostgreSQL RDBMS.
+* One implementation using in-memory storage, for testing purposes.
+
+According to our experience, there is always a dependency between the database persistence technology and the shape of the repository functions.
+The types of interactions that are possible with a typical relational database management system, such as PostgreSQL, on DynamoDB, or on MongoDB, are rather different. 
+Defining a repository interface that only uses functionalities common to all these systems, means not taking advantage of its distinctive features, resulting in a less than optimal usage.
+
+Due to this, it is our current opinion that the design of the repository interface should take into consideration the types of interactions allowed by the database technology used in production.
+An example of this is having the concept of transactions with an unbound number and type of inner interactions.
+
+On the other hand, it also our current opinion that the repository group should not expose types specific to the database technology, such as exposing a `ResultSet` when using `JDBC`.
+That is, expose interaction patterns that depend on the database technology but not specific types of those technologies.
+
+in addition, the repository group should not make hidden domain level decisions.
+That is, all decisions should be explicitly communicated via function arguments.
+
+==== An illustrative example
+
+Consider a domain rule stating that the number of active authentication tokens associated to an user is limited:
+
+* A user cannot have more than a pre-defined number of tokens.
+* The creation of a new token may require removing an older token so that the maximum number is never exceeded.
+
+In the organization principles described in this document:
+
+* It is allowed for the repository group to expose functions with this behavior, i.e., functions that create a token and remove an old token if needed. This allows for the creation and deletion to be done in a single interaction with the database management system.
+* However, this behavior should be explicit in the function documentation and signature and not be a private implementation detail of the repository function
+* The maximum number of tokens should not be hardcoded in the repository group and always be defined by the external caller, which is always a function from the services group. 
+
+=== The services group
+
+The services group defines types and functions that provide domain functionality, such as creating an user, creating a game, or making a turn play on a game.
+
+The services group uses items from the repository group and from the domain group, however it does not use items from the HTTP group.
+
+The distinction between the services group and the domain group is a subtle one:
+
+* Functions from the services group can interact with the repository group and therefore may have side-effects. The evaluation of a service function may result in a state change in the persisted state.
+
+* Functions from the domain group cannot interact with the repository group and should be free from side-effects, i.e. they should be _pure functions_.
+
+This division will help with testability, because functions from the domain group are easier to test. 
+
+=== The HTTP group
+
+The HTTP group contains functions and types responsible for exposing and implementing the HTTP API.
+It may use items from the domain and services groups, however it does not use types from the repository group.
+
+Types in this group can be dependent on the technology used to handle HTTP requests, which is Spring MVC for this course.
+As an example, types in this group can implement interfaces, extend classes, and use types from the Spring MVC library.
+
+Spring MVC allows the usage of complex types to represent input and output information, namely:
+
+* Map the payload of request messages into handler arguments with complex types (e.g. data classes with multiple field).
+
+* Map values of complex types returned by handlers into the payload of response messages.
+
+The shape of these types influence the shape of the request and response messages and therefore influence the HTTP API contract.
+Due to this, we use special _input and output model_ types on this places, instead of using types from the domain group.
+The main goal is to isolate the the HTTP API from changes outside the HTTP group.
+
+== Testing
+
+=== Testing the repository group
+
+The test of the repository group uses the implementations used in production.
+In the provided example, this means using the JDBI-based implementation that interacts with the PostgreSQL RDBMS.
+No attempt is made to simulate or mock any part of the repository group or of the RDBMS.
+That is, testing the repository group requires a functional PostgresSQL.
+
+The automated creation and disposal of functional PostgresSQL instances is achieved by using Docker containers and Gradle tasks.
+
+=== Testing the services group
+
+The test of the services group is done by explicitly instantiating and using types contained in this group.
+No dependency injection container is used. 
+Instead, explicit composition of the dependencies graph is used.
+
+The test of the services group typically requires implementations of the repository group interfaces.
+Two different routes can be taken for this:
+
+* Use the production repository implementation, i.e. the one that requires a functional PostgresSQL database, taking advantage of the automation put in place for testing the repository group.
+
+* Use an in-memory repository implementation.
+
+The former may be slower to execute, due to the RDBMS interactions, however better reflects what will happen in production.
+Tha latter can be faster to execute, however requires the implementation or _mocking_ of the repository group, and may have a behavior that doesn't exactly match what happens in production.
+
+=== Testing the domain group
+
+The test of the domain group is the easiest to achieve, since it is mainly composed by pure functions.
+It can be achieved without the need to use the dependency injection container or a function RDBMS.
+
+=== Testing the HTTP group
+
+The test of the HTTP group is achieved by starting the complete backend, include the JVM-based application and the RDBMS, performing HTTP requests and asserting properties of the HTTP responses.
+For that it uses:
+
+* The PostgreSQL automation put in place for the repository group tests.
+* The Spring test helpers that automatically launch the Spring application when a test is run.
+* The Spring provided `WebTestClient` class, containing a fluent interface to construct HTTP requests and asserting properties on HTTP responses.
