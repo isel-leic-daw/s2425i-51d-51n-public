@@ -1,4 +1,5 @@
 = Summaries LEIC51N
+:toc:
 
 == Lecture 1 - 2024-09-09
 
@@ -55,3 +56,22 @@
 ** link:lecture-notes/01-01-servlets.adoc[Servlets].
 ** link:exercises-and-guides/01-00-spring-boot-mvc.adoc[Spring Boot and Spring MVC].
 ** link:https://docs.spring.io/spring-framework/reference/web/webmvc.html[Spring MVC framework].
+
+== Lecture 4 - 2024-09-19
+
+* The link:https://docs.spring.io/spring-framework/reference/web/webmvc.html[Spring MVC framework].
+** The Spring MVC processing pipeline.
+** Argument resolution - available methods and extensibility.
+** Result value handling and message converters - available methods and extensibility.
+** Handler interceptors and their comparison with servlet filters.
+** Usage examples.
+* Presentation of the semester project.
+** Goals and requirements.
+** Guidance on how to start the design and development.
+* Lab - configuring and developing a project with Spring MVC.
+** link:exercises-and-guides/01-00-spring-boot-mvc.adoc[Spring Boot introductory exercises].
+
+* Lecture resources:
+** link:../code/jvm/spring-boot-mvc-intro[Project with Spring MVC usage examples and extensibility examples].
+** link:https://docs.spring.io/spring-framework/reference/web/webmvc.html[Spring MVC framework].
+** link:exercises-and-guides/01-00-spring-boot-mvc.adoc[Spring Boot introductory exercises].
