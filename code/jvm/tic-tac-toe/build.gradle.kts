@@ -55,7 +55,7 @@ kotlin {
  *   and provide it with the same password as define on `tests/Dockerfile-db-test`
  */
 task<Exec>("dbTestsUp") {
-    commandLine("docker-compose", "up", "-d", "--build", "--force-recreate", "db-tests")
+    commandLine("docker", "compose", "up", "-d", "--build", "--force-recreate", "db-tests")
 }
 
 task<Exec>("dbTestsWait") {
@@ -64,7 +64,7 @@ task<Exec>("dbTestsWait") {
 }
 
 task<Exec>("dbTestsDown") {
-    commandLine("docker-compose", "down")
+    commandLine("docker", "compose", "down")
 }
 
 tasks.named("check") {
