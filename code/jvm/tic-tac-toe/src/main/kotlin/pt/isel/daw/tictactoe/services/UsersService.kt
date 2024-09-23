@@ -17,14 +17,14 @@ data class TokenExternalInfo(
 )
 
 sealed class UserCreationError {
-    object UserAlreadyExists : UserCreationError()
+    data object UserAlreadyExists : UserCreationError()
 
-    object InsecurePassword : UserCreationError()
+    data object InsecurePassword : UserCreationError()
 }
 typealias UserCreationResult = Either<UserCreationError, Int>
 
 sealed class TokenCreationError {
-    object UserOrPasswordAreInvalid : TokenCreationError()
+    data object UserOrPasswordAreInvalid : TokenCreationError()
 }
 typealias TokenCreationResult = Either<TokenCreationError, TokenExternalInfo>
 

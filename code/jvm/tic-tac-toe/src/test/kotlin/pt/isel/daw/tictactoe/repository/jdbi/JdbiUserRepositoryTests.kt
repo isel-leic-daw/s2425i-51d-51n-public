@@ -4,6 +4,7 @@ import org.jdbi.v3.core.Handle
 import org.jdbi.v3.core.Jdbi
 import org.junit.jupiter.api.Test
 import org.postgresql.ds.PGSimpleDataSource
+import pt.isel.daw.tictactoe.Environment
 import pt.isel.daw.tictactoe.TestClock
 import pt.isel.daw.tictactoe.domain.PasswordValidationInfo
 import pt.isel.daw.tictactoe.domain.Token
@@ -103,7 +104,7 @@ class JdbiUserRepositoryTests {
         private val jdbi =
             Jdbi.create(
                 PGSimpleDataSource().apply {
-                    setURL("jdbc:postgresql://localhost:5432/db?user=dbuser&password=changeit")
+                    setURL(Environment.getDbUrl())
                 },
             ).configureWithAppRequirements()
     }
