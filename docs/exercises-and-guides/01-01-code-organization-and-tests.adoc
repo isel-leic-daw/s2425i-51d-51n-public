@@ -1,0 +1,55 @@
+= Code organization and tests 
+
+== Goal
+
+This guide aims to improve the understanding of the backend code organization, testing techniques, and automation tasks.
+
+== Steps
+
+=== Setting up the environment
+
+* Checkout the latest commit in the `main` branch of the `s2425i-51fd-51n-public` repository.
+* Open one or more shells in the `code/jvm` folder.
+* Open the `jvm` Gradle-based project in Intellij.
+** Ensure project loading is successful.
+* Install link:https://www.docker.com/products/docker-desktop/[Docker Desktop].
+** Check that Docker Desktop is running correctly by doing `docker ps`
+*** This command shows the running containers.
+* Run `./gradlew :tic-tac-toe:dbTestsWait` to start a PostgreSQL instance in a container.
+** Run `docker ps` to check that now there is a container running.
+* Run `./gradlew :tic-tac-toe:check` to run all tests.
+** Ensure the build is successful.
+** Open the file located at `tic-tac-toe/build/reports/tests/test/index.html` and visualize the tests that were executed and their outcome.
+* Run `docker ps`
+** Running the `check` task terminates the container at the end.
+
+=== Adding tests in the _domain_ group
+
+* Add a test in the _domain_ group.
+** A `TokenEncoder` implementation is responsible for taking a token and producing validation information that can be stored in the database. Computing the token from this information should be computationally infeasible, however given a token it should be easy to check if the token matches the validation information.
+** The test should empirically
+*** Verify that the validation information is not equal to the original token.
+*** Verify that the encoding process is deterministic.
+** Run the test from inside IntelliJ and from the shell.
+
+=== Extend the _repository_ functionality
+
+* Add a new function to the `UserRepository`, which returns the number of tokens for a given user that have been used in a given time interval and created in a given interval.
+** Implement that function in the `JdbiUserRepository`.
+** Adds at least one test in `JdbiUserRepositoryTests` to test this new repository functionality.
+*** Ensure the test passes successfully, both when running from inside IntelliJ and from inside the shell.
+
+=== Extend the _services_ functionality
+
+* Add a new function to the `UsersService` interface to obtain the number of valid tokens for a given user.
+** Note the properties in the `UsersDomainConfig` class, belonging to the _domain_ group.
+** Add at least one test in the `UsersServiceTests` to test this new service functionality.
+*** Ensure the test passes successfully, both when running from inside IntelliJ and from inside the shell.
+
+=== Extend the _http_ functionality
+
+* Add to the HTTP API a way to obtain the number of valid tokens for the authenticated user.
+** Add at least one test in the `UserTests` to test this new HTTP API functionality.
+*** Observe the use of the `@SpringBootTest` annotation in the `UserTests` class and research what is its purpose.
+*** Observe the use of the `WebTestClient` class in the tests present in `UserTests`.
+*** Ensure the test passes successfully, both when running from inside IntelliJ and from inside the shell.
