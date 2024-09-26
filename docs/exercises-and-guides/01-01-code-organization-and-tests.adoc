@@ -53,3 +53,5 @@ This guide aims to improve the understanding of the backend code organization, t
 *** Observe the use of the `@SpringBootTest` annotation in the `UserTests` class and research what is its purpose.
 *** Observe the use of the `WebTestClient` class in the tests present in `UserTests`.
 *** Ensure the test passes successfully, both when running from inside IntelliJ and from inside the shell.
+
+* Make sure all the tests pass successfully when run from the shell via `./gradlew :tic-tac-toe:check`.
