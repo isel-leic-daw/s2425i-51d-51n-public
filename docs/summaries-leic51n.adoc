@@ -75,3 +75,22 @@
 ** link:../code/jvm/spring-boot-mvc-intro[Project with Spring MVC usage examples and extensibility examples].
 ** link:https://docs.spring.io/spring-framework/reference/web/webmvc.html[Spring MVC framework].
 ** link:exercises-and-guides/01-00-spring-boot-mvc.adoc[Spring Boot introductory exercises].
+
+== Lecture 5 - 2024-09-23
+
+* Backend application software organization.
+** Grouping the types and functions into: repository group, services group, domain group, and HTTP group.
+** Group characterization
+*** Dependencies between groups.
+*** Functions with and without side-effects.
+*** Technological dependencies with JDBC/JDBI and Spring MVC.
+*** Data models.
+* Testing
+** Testing the repository group.
+** Testing the services group.
+** Testing the domain group.
+** Testing the HTTP API.
+
+* Lecture resources:
+** link:lecture-notes/01-02-backend-code-organization.adoc[Backend code organization].
+** link:../code/jvm/tic-tac-toe[Tic-tac-toe project].

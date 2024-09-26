@@ -43,13 +43,13 @@ This guide aims to improve the understanding of the backend code organization, t
 
 * Add a new function to the `UsersService` interface to obtain the number of valid tokens for a given user.
 ** Note the properties in the `UsersDomainConfig` class, belonging to the _domain_ group.
-** Add at least one test in the `UsersServiceTests` to test this new service functionality.
+** Add at least one test in the `UsersServiceTests` to verify this new service functionality.
 *** Ensure the test passes successfully, both when running from inside IntelliJ and from inside the shell.
 
 === Extend the _http_ functionality
 
 * Add to the HTTP API a way to obtain the number of valid tokens for the authenticated user.
-** Add at least one test in the `UserTests` to test this new HTTP API functionality.
+** Add at least one test in the `UserTests` to verify this new HTTP API functionality.
 *** Observe the use of the `@SpringBootTest` annotation in the `UserTests` class and research what is its purpose.
 *** Observe the use of the `WebTestClient` class in the tests present in `UserTests`.
 *** Ensure the test passes successfully, both when running from inside IntelliJ and from inside the shell.
