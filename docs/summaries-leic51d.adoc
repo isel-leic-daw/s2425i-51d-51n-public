@@ -111,4 +111,11 @@
 ** Recognizing the limits of the HTTP protocol.
 ** Representation design.
 
+* Lecture resources:
+** link:https://www.rfc-editor.org/rfc/rfc9110.html[RFC 9110 - HTTP semantics].
+** link:./lecture-notes/02-01-web-architecture.adoc[The architecture of the World Wide Web].
+** link:./lecture-notes/02-02-the-http-protocol.adoc[The HTTP protocol].
+** link:./lecture-notes/02-03-the-http-protocol.adoc[The HTTP protocol - slides].
+
+
 

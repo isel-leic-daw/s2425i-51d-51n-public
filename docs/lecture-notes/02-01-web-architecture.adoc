@@ -1,0 +1,88 @@
+== The architecture of the World Wide Web
+
+Set of notes relevant to the design and implementation of networked APIs, that take advantage of the Web design styles and technologies.
+
+Based on the link:https://www.w3.org/TR/webarch/[Architecture of the World Wide Web, Volume One] document.
+
+[quote]
+The World Wide Web (WWW, or simply Web) is an information space in which the items of interest, referred to as resources, are identified by global identifiers called Uniform Resource Identifiers (URI).
+
+Notice:
+
+* "information space"
+* The items of that information space are referred to as _resources_.
+* Resources are identified by URIs - Uniform Resource Identifiers.
+
+What are resources?
+
+* Anything in the information space that deserves or needs to be identified.
+* Example of resources on an academic information space
+** courses, classes, time schedules, work assignments, teachers, students, users - i.e. data-like things.
+** enroll a student on a class, create a git repo for a work assignment - i.e. operation-like things.
+
+[quote]
+By design a URI identifies one resource. We do not limit the scope of what might be a resource. The term "resource" is used in a general sense for whatever might be identified by a URI.
+
+The three architectural bases of the Web:
+
+> ...the three architectural bases of the Web that are discussed in this document:
+>
+> * Identification - URIs are used to identify resources.
+> * Interaction - Web agents communicate using standardized protocols that enable interaction through the exchange of messages > which adhere to a defined syntax and semantics.
+> * Formats - Most protocols used for representation retrieval and/or submission make use of a sequence of one or more messages, which taken together contain a payload of representation data and metadata, to transfer the representation between agents.
+
+== Identification and URIs
+
+URIs are global
+
+* E.g. The local identifier `40123` may be used to identify a ISEL student or an ISCAL student, or a postbox, or a citizen, or a row in a table. The meaning of the identifier is local to the context where it is used.
+* E.g. `https://isel.pt/students/40123`` is a global identifier. For instance, a user-agent doesn't need additional information to request a representation of this resource.
+
+URIs have an uniform format, however can have multiple schemes. All these are examples of URIs with different schemas (taken from link:https://www.w3.org/TR/webarch/from[Architecture of the World Wide Web, Volume One]).
+
+[source]
+----
+mailto:joe@example.org
+ftp://example.org/aDirectory/aFile
+news:comp.infosystems.www
+tel:+1-816-555-1212
+ldap://ldap.example.org/c=GB?objectClass?one
+urn:oasis:names:tc:entity:xmlns:xml:catalog
+----
+
+link:https://www.w3.org/TR/webarch/#pr-uri-opacity[Good practice]:
+[quote]
+Good practice: URI opacity Agents making use of URIs SHOULD NOT attempt to infer properties of the referenced resource
+
+E.g. `https://example.com/somethings/new should not be inferred as an URI to a resource that creates things.
+
+== Interaction
+
+[quote]
+Communication between agents over a network about resources involves URIs, messages, and data. The Web's protocols (including HTTP, FTP, SOAP, NNTP, and SMTP) are based on the exchange of messages. A message may include data as well as metadata about a resource (such as the "Alternates" and "Vary" HTTP headers), the message data, and the message itself (such as the "Transfer-encoding" HTTP header). A message may even include metadata about the message metadata (for message-integrity checks, for instance).
+
+On the web we don't make calls - we send and receive messages. Beware of the procedure mindset when reasoning about Web-based systems:
+
+* Different failure modes (messages can be lost, connections may be refused, DNS lookups can fail).
+* Different security boundaries and trust levels.
+** On an intra-process procedure call both the caller and the callee are associated to the same identity.
+** On an inter-machine message exchange, the agents may belong to different authorities.
+* Different implementation technologies.
+** Interacting agents don't necessarely share implementation technology.
+One of the main protocols is the HTTP protocol and we will be focusing on it later on.
+
+== Formats
+
+[quote]
+A representation is data that encodes information about resource state. Representations of a resource may be sent or received using interaction protocols. These protocols in turn determine the form in which representations are conveyed on the Web. HTTP, for example, provides for transmission of representations as octet streams typed using Internet media types [RFC2046].
+
+E.g. The HTTP protocol is not bound to a specific format (e.g. HTML, XML, JSON). Instead, the HTTP protocol uses the concept of media-type to identify the format used on the representations.
+
+See the link:https://www.iana.org/assignments/media-types/media-types.xhtml[IANA media type registry]
+
+IANA is the _Internet Assigned Number Authority and manages a set of registries with Web things/concepts, such as:
+
+* link:https://www.iana.org/assignments/media-types/media-types.xhtml[The media type registry].
+* link:https://www.iana.org/assignments/message-headers/message-headers.xhtml[The message headers registry].
+* link:https://www.iana.org/assignments/http-methods/http-methods.xhtml[The HTTP method registry].
+* link:https://www.iana.org/assignments/oauth-parameters/oauth-parameters.xhtml[The OAuth parameters registry].
