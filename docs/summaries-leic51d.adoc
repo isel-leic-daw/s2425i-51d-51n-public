@@ -98,3 +98,17 @@
 ** link:lecture-notes/01-02-backend-code-organization.adoc[Backend code organization].
 ** link:../code/jvm/tic-tac-toe[Tic-tac-toe project].
 
+== Lecture 6 - 2024-09-26
+
+* Laboratory class, guided by link:./exercises-and-guides/01-01-code-organization-and-tests.adoc[Code organization and tests].
+* Repository design and transaction management.
+
+== Lecture 7 - 204-09-30
+
+* Design of HTTP APIs. 
+** Ensuring the HTTP protocol requirements.
+** Taking advantage of the HTTP protocol application-level functionalities, such as content negotiation.
+** Recognizing the limits of the HTTP protocol.
+** Representation design.
+
+
