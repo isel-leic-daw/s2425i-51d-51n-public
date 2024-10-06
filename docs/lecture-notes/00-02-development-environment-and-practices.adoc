@@ -46,7 +46,7 @@ The process automation provides:
 * A way to document the build process.
 
 Integrated Development Environments (IDEs), such as IntelliJ, can also use external build automation tools so that the activities performed by the IDE when building the project or running the tests are delegated to the build automation tools.
-This ensures the build process is always the same, weather it was triggered from inside the IDE or weather it is being run in a continuous integration environment. 
+This ensures the build process is always the same, whether it was triggered from inside the IDE or whether it is being run in a continuous integration environment. 
 
 === Gradle
 
