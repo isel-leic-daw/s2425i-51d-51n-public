@@ -1,4 +1,4 @@
-= Summaries LEIC51N
+= Summaries LEIC51D
 :toc:
 
 == Lecture 1 - 2024-09-09
@@ -103,19 +103,45 @@
 * Laboratory class, guided by link:./exercises-and-guides/01-01-code-organization-and-tests.adoc[Code organization and tests].
 * Repository design and transaction management.
 
-== Lecture 7 - 204-09-30
+== Lecture 7 - 2024-09-30
 
 * Design of HTTP APIs. 
 ** Ensuring the HTTP protocol requirements.
 ** Taking advantage of the HTTP protocol application-level functionalities, such as content negotiation.
 ** Recognizing the limits of the HTTP protocol.
 ** Representation design.
+*** Representation of non-success and link:https://www.rfc-editor.org/rfc/rfc9457.html[RFC 9457 Problem Details for HTTP APIs].
 
 * Lecture resources:
 ** link:https://www.rfc-editor.org/rfc/rfc9110.html[RFC 9110 - HTTP semantics].
 ** link:./lecture-notes/02-01-web-architecture.adoc[The architecture of the World Wide Web].
 ** link:./lecture-notes/02-02-the-http-protocol.adoc[The HTTP protocol].
 ** link:./lecture-notes/02-03-the-http-protocol.adoc[The HTTP protocol - slides].
+** link:https://www.rfc-editor.org/rfc/rfc9457.html[RFC 9457 Problem Details for HTTP APIs].
 
+== Lecture 8 - 2024-10-03
+
+* Design of HTTP APIs. 
+** HTTP protocol extensions
+*** The IETF link:https://datatracker.ietf.org/wg/httpapi/about/[Building Blocks for HTTP APIs] working group.
+*** link:https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/[The Idempotency-Key HTTP Header Field].
+*** link:https://datatracker.ietf.org/doc/draft-ietf-httpapi-ratelimit-headers/[RateLimit header fields for HTTP].
+** Representation design.
+*** HTTP API evolvability and the use of JSON objects.
+*** Naming conventions.
+*** Representation of temporal instants.
+*** The concept of an API _vocabulary_.
+*** Hypermedia as the addition of representation information to guide the client in subsequent requests.
+**** The link:https://www.rfc-editor.org/rfc/rfc8288.html[RFC 8288 - Web Linking] specification, the concept of a link and their serializations in message headers.
+**** Hypermedia usage advantages.
+* Analysis of a concrete HTTP API - link:https://docs.github.com/en/rest?apiVersion=2022-11-28[The GitHub HTTP API].
+
+* Lecture resources:
+** link:https://datatracker.ietf.org/wg/httpapi/about/[Building Blocks for HTTP APIs] working group.
+** link:https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/[The Idempotency-Key HTTP Header Field].
+** link:https://datatracker.ietf.org/doc/draft-ietf-httpapi-ratelimit-headers/[RateLimit header fields for HTTP].
+** link:https://docs.github.com/en/rest?apiVersion=2022-11-28[The GitHub HTTP API]
+*** link:https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api?apiVersion=2022-11-28[Pagination].
+*** link:https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api?apiVersion=2022-11-28#hypermedia[Hypermedia usage in representations].
 
 
