@@ -144,4 +144,19 @@
 *** link:https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api?apiVersion=2022-11-28[Pagination].
 *** link:https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api?apiVersion=2022-11-28#hypermedia[Hypermedia usage in representations].
 
+== Lecture 9 - 2024-10-07
 
+* Backend application software organization.
+** Using Gradle modules to enforce the visibility restrictions between groups.
+* Stateless property of HTTP servers and its benefits.
+* Server initiated communication and the SSE (Server-sent Events) specification.
+** Connection establishment restrictions.
+** Using client established connections to send server initiated events.
+** Sending events in the context of an unfinished response.
+** The link:https://html.spec.whatwg.org/multipage/server-sent-events.html[Server-sent Events] specification, namely its media-type.
+** Spring MVC support for the SSE specification.
+** State related consequences of using SSE.
+
+* Lecture resources:
+** link:https://html.spec.whatwg.org/multipage/server-sent-events.html[Server-sent Events].
+** Code examples in the link:../code/jvm/tic-tac-toe[tic-tac-toe project].
