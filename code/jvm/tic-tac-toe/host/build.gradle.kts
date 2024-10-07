@@ -17,6 +17,7 @@ dependencies {
     // Module dependencies
     implementation(project(":tic-tac-toe:domain"))
     implementation(project(":tic-tac-toe:http"))
+    implementation(project(":tic-tac-toe:services"))
     implementation(project(":tic-tac-toe:repository-jdbi"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")

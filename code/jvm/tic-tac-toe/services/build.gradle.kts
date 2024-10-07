@@ -20,6 +20,9 @@ dependencies {
     // To use Kotlin specific date and time functions
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
 
+    // To use SLF4J
+    implementation("org.slf4j:slf4j-api:2.0.16")
+
     // To use the JDBI-based repository implementation on the tests
     testImplementation(project(":tic-tac-toe:repository-jdbi"))
     testImplementation("org.jdbi:jdbi3-core:3.37.1")

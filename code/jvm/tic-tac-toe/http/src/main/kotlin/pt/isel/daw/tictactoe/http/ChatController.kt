@@ -10,18 +10,23 @@ import java.util.concurrent.TimeUnit
 
 @RestController
 class ChatController(
-    private val chatService: ChatService
+    private val chatService: ChatService,
 ) {
-
     @GetMapping(Uris.Chat.LISTEN)
     fun listen(): SseEmitter {
         val sseEmitter = SseEmitter(TimeUnit.HOURS.toMillis(1))
-        chatService.addListner(SseEmitterBasedEventListener(sseEmitter))
+        chatService.addEventEmitter(
+            SseEmitterBasedEventEmitter(
+                sseEmitter,
+            ),
+        )
         return sseEmitter
     }
 
     @PostMapping(Uris.Chat.SEND)
-    fun send(@RequestBody message: String) {
+    fun send(
+        @RequestBody message: String,
+    ) {
         chatService.sendMessage(message)
     }
 }

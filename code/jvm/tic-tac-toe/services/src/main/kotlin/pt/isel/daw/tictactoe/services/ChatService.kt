@@ -3,8 +3,8 @@ package pt.isel.daw.tictactoe.services
 import jakarta.inject.Named
 import kotlinx.datetime.Clock
 import org.slf4j.LoggerFactory
-import pt.isel.daw.tictactoe.domain.chat.Event
-import pt.isel.daw.tictactoe.domain.chat.EventListener
+import pt.isel.daw.tictactoe.domain.Event
+import pt.isel.daw.tictactoe.domain.EventEmitter
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
@@ -12,12 +12,13 @@ import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
 
 @Named
-class ChatService : NeedsShutdowm{
-
-    private val listeners = mutableListOf<EventListener>()
+class ChatService : NeedsShutdowm {
+    // Important: mutable state on a singleton service
+    private val listeners = mutableListOf<EventEmitter>()
     private var currentId = 0L
     private val lock = ReentrantLock()
 
+    // A scheduler to send the periodic keep-alive events
     private val scheduler: ScheduledExecutorService = Executors.newScheduledThreadPool(1).also {
         it.scheduleAtFixedRate({ keepAlive() }, 2, 2, TimeUnit.SECONDS)
     }
@@ -27,7 +28,7 @@ class ChatService : NeedsShutdowm{
         scheduler.shutdown()
     }
 
-    fun addListner(listener: EventListener) = lock.withLock {
+    fun addEventEmitter(listener: EventEmitter) = lock.withLock {
         logger.info("adding listener")
         listeners.add(listener)
         listener.onCompletion {
@@ -47,7 +48,7 @@ class ChatService : NeedsShutdowm{
         sendEventToAll(Event.Message(id, msg))
     }
 
-    private fun removeListener(listener: EventListener) = lock.withLock {
+    private fun removeListener(listener: EventEmitter) = lock.withLock {
         logger.info("removing listener")
         listeners.remove(listener)
     }
@@ -60,7 +61,7 @@ class ChatService : NeedsShutdowm{
     private fun sendEventToAll(event: Event) {
         listeners.forEach {
             try {
-                it.send(event)
+                it.emit(event)
             } catch (ex: Exception) {
                 logger.info("Exception while sending event - {}", ex.message)
             }

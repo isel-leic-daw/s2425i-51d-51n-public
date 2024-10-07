@@ -6,7 +6,7 @@ import pt.isel.daw.tictactoe.services.NeedsShutdowm
 
 @Component
 class ShutdownManager(
-    private val needShutdown: List<NeedsShutdowm>,
+    private val needShutdown: List<NeedsShutdowm>
 ) {
     @PreDestroy
     private fun preDestroy() {
