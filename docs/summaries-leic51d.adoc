@@ -160,3 +160,7 @@
 * Lecture resources:
 ** link:https://html.spec.whatwg.org/multipage/server-sent-events.html[Server-sent Events].
 ** Code examples in the link:../code/jvm/tic-tac-toe[tic-tac-toe project].
+
+== Lecture 10 - 2024-10-10
+
+* No lecture.
