@@ -11,8 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
-import pt.isel.daw.tictactoe.domain.Sha256TokenEncoder
-import pt.isel.daw.tictactoe.domain.UsersDomainConfig
+import pt.isel.daw.tictactoe.domain.users.Sha256TokenEncoder
+import pt.isel.daw.tictactoe.domain.users.UsersDomainConfig
 import pt.isel.daw.tictactoe.http.pipeline.AuthenticatedUserArgumentResolver
 import pt.isel.daw.tictactoe.http.pipeline.AuthenticationInterceptor
 import pt.isel.daw.tictactoe.repository.jdbi.configureWithAppRequirements

@@ -3,9 +3,9 @@ package pt.isel.daw.tictactoe.services
 import jakarta.inject.Named
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import pt.isel.daw.tictactoe.domain.Token
-import pt.isel.daw.tictactoe.domain.User
-import pt.isel.daw.tictactoe.domain.UsersDomain
+import pt.isel.daw.tictactoe.domain.users.Token
+import pt.isel.daw.tictactoe.domain.users.User
+import pt.isel.daw.tictactoe.domain.users.UsersDomain
 import pt.isel.daw.tictactoe.repository.TransactionManager
 import pt.isel.daw.tictactoe.utils.Either
 import pt.isel.daw.tictactoe.utils.failure

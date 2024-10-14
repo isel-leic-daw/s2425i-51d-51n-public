@@ -24,6 +24,10 @@ dependencies {
     implementation("org.jdbi:jdbi3-postgres:3.37.1")
     implementation("org.postgresql:postgresql:42.7.2")
 
+    // For Jackson
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.0")
+
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     // To use Kotlin specific date and time functions

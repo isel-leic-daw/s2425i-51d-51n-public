@@ -2,7 +2,7 @@ package pt.isel.daw.tictactoe.repository.jdbi.mappers
 
 import org.jdbi.v3.core.mapper.ColumnMapper
 import org.jdbi.v3.core.statement.StatementContext
-import pt.isel.daw.tictactoe.domain.TokenValidationInfo
+import pt.isel.daw.tictactoe.domain.users.TokenValidationInfo
 import java.sql.ResultSet
 import java.sql.SQLException
 

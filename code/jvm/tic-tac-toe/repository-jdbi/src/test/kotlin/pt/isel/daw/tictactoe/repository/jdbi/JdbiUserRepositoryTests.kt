@@ -2,16 +2,16 @@ package pt.isel.daw.tictactoe.repository.jdbi
 
 import org.jdbi.v3.core.Handle
 import org.jdbi.v3.core.Jdbi
-import org.junit.jupiter.api.Test
 import org.postgresql.ds.PGSimpleDataSource
 import pt.isel.daw.tictactoe.Environment
 import pt.isel.daw.tictactoe.TestClock
-import pt.isel.daw.tictactoe.domain.PasswordValidationInfo
-import pt.isel.daw.tictactoe.domain.Token
-import pt.isel.daw.tictactoe.domain.TokenValidationInfo
-import pt.isel.daw.tictactoe.domain.User
+import pt.isel.daw.tictactoe.domain.users.PasswordValidationInfo
+import pt.isel.daw.tictactoe.domain.users.Token
+import pt.isel.daw.tictactoe.domain.users.TokenValidationInfo
+import pt.isel.daw.tictactoe.domain.users.User
 import kotlin.math.abs
 import kotlin.random.Random
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull

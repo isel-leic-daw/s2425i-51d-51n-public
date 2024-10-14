@@ -1,12 +1,12 @@
 package pt.isel.daw.tictactoe.http
 
-import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.test.web.reactive.server.WebTestClient
 import pt.isel.daw.tictactoe.http.model.TokenResponse
 import kotlin.math.abs
 import kotlin.random.Random
+import kotlin.test.Test
 import kotlin.test.assertTrue
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

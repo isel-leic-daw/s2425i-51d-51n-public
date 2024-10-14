@@ -1,10 +1,10 @@
 package pt.isel.daw.tictactoe.repository
 
 import kotlinx.datetime.Instant
-import pt.isel.daw.tictactoe.domain.PasswordValidationInfo
-import pt.isel.daw.tictactoe.domain.Token
-import pt.isel.daw.tictactoe.domain.TokenValidationInfo
-import pt.isel.daw.tictactoe.domain.User
+import pt.isel.daw.tictactoe.domain.users.PasswordValidationInfo
+import pt.isel.daw.tictactoe.domain.users.Token
+import pt.isel.daw.tictactoe.domain.users.TokenValidationInfo
+import pt.isel.daw.tictactoe.domain.users.User
 
 interface UsersRepository {
     fun storeUser(

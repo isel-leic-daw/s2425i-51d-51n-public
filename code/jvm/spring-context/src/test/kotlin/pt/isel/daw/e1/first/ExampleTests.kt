@@ -1,10 +1,10 @@
 package pt.isel.daw.e1.first
 
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.springframework.beans.factory.getBean
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import kotlin.test.Test
 import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 class ExampleTests {
     @Test

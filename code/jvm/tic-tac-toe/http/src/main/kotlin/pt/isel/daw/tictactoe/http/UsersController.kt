@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import pt.isel.daw.tictactoe.domain.AuthenticatedUser
+import pt.isel.daw.tictactoe.domain.users.AuthenticatedUser
 import pt.isel.daw.tictactoe.http.model.Problem
 import pt.isel.daw.tictactoe.http.model.UserCreateInputModel
 import pt.isel.daw.tictactoe.http.model.UserCreateTokenInputModel

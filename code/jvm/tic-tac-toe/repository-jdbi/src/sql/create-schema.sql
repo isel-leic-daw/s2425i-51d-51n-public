@@ -17,9 +17,9 @@ create table dbo.Games(
     id UUID not null,
     state VARCHAR(64) not null,
     board jsonb not null,
-    created int not null,
-    updated int not null,
-    deadline int,
+    created_at bigint not null,
+    updated_at bigint not null,
+    deadline bigint,
     player_x int references dbo.Users(id),
     player_o int references dbo.Users(id)
 );

@@ -1,4 +1,4 @@
-package pt.isel.daw.tictactoe.domain
+package pt.isel.daw.tictactoe.domain.users
 
 import kotlin.time.Duration
 

@@ -1,7 +1,6 @@
-package pt.isel.daw.tictactoe
+package pt.isel.daw.tictactoe.domain.users
 
-import org.junit.jupiter.api.Test
-import pt.isel.daw.tictactoe.domain.Sha256TokenEncoder
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 

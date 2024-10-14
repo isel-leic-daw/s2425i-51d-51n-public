@@ -1,10 +1,10 @@
 package pt.isel.daw.sketches.leic51n
 
-import org.junit.jupiter.api.Assertions.assertFalse
 import org.springframework.beans.factory.getBean
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Component
 import kotlin.test.Test
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class AuthenticationServiceTests {

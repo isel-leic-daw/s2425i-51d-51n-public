@@ -1,7 +1,7 @@
 package pt.isel.daw.tictactoe.http.pipeline
 
 import org.springframework.stereotype.Component
-import pt.isel.daw.tictactoe.domain.AuthenticatedUser
+import pt.isel.daw.tictactoe.domain.users.AuthenticatedUser
 import pt.isel.daw.tictactoe.services.UsersService
 
 @Component

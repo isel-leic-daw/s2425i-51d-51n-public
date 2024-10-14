@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.springframework.web.method.HandlerMethod
 import org.springframework.web.servlet.HandlerInterceptor
-import pt.isel.daw.tictactoe.domain.AuthenticatedUser
+import pt.isel.daw.tictactoe.domain.users.AuthenticatedUser
 
 @Component
 class AuthenticationInterceptor(
