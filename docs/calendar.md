@@ -13,7 +13,7 @@
 ## W1 - 2023-09-09
 - Course introduction.
 - An architecture for Web-based systems.
-- The Inversion of Control (IoD) and Dependency Injection (DI) techniques.
+- The Inversion of Control (IoC) and Dependency Injection (DI) techniques.
 - The Spring framework and Spring context.
 
 ## W2 - 2023-09-16
