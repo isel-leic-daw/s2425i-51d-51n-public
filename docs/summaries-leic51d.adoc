@@ -164,3 +164,22 @@
 == Lecture 10 - 2024-10-10
 
 * No lecture.
+
+== Lecture 11 - 2024-10-14
+
+* Support the first phase of the project development.
+** Clarifications about non-success handling and representation. 
+** Miscellaneous questions.
+* HTTP caching (link:https://www.rfc-editor.org/rfc/rfc9111.html(RFC 9111)) and HTTP conditional requests.
+
+== Lecture 12 - 2024-10-17
+
+* Support the first phase of the project development.
+
+== Lecture 13 - 2024-10-21
+
+* Project first phase presentations.
+
+== Lecture 14 - 2024-10-24
+
+* Project first phase presentations.
