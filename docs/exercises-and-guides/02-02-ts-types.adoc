@@ -1,0 +1,62 @@
+= Exercise on the TypeScript type system
+
+Consider the following file
+
+----
+function createElement(
+    name: any,
+    attributes: any,
+    children: any
+): HTMLElement {
+    throw new Error("TODO")
+}
+
+// Valid usages
+
+createElement("div")
+createElement("p", null, "Hello World")
+createElement("a", {href: "https://www.typescriptlang.org"}, "typescript")
+createElement("button", {disabled: true}, "Press me")
+createElement("ul", null, 
+    createElement("li", null, "Item 1"),
+    createElement("li", null, "Item 2"),
+)
+const items = [
+    "item 1",
+    "item 2",
+]
+createElement("ul", null,
+    items.map(item => createElement("li", null, item))
+)
+
+// invalid usages
+createElement(true)
+createElement("a", {foo: 1 })
+createElement("a", {}, true)
+createElement("a", {}, [true])
+----
+
+* Change the type of the parameters so that the `any` type is never used, and:
+** The "valid usages" don't produce any compiler error.
+** The "invalid usages" produce the expected compiler error.
+
+* Implement the `createElement` body.
+
+* Use the link:https://www.typescriptlang.org/play[TypeScrypt Playground] to test the type-checking.
+
+* Consider the following type
+
+----
+type Degree = "LEIC" | "MEIC"
+type Student = {
+    name: string,
+    nbr: number,
+    degree: Degree,
+}
+----
+
+Create the following function, using the `createElement` function defined above and representing the array of students in a table.
+
+----
+function render(students: Array<Student>): HTMLElement
+----

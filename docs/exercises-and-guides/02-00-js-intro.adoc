@@ -1,0 +1,87 @@
+= Introduction to the development of browser based applications
+
+== Introduction
+
+Sequence of exercises to illustrate the loading and execution of scripts in the browser, as well as the `document` API.
+
+== Document and scripts loading
+
+* Start by installing link:https://www.npmjs.com/package/serve[serve] as a way to easily serve files from a local folder via the HTTP protocol.
+** `npm install --global serve`
+* Create an empty folder and add an HTML file named `index.html` to it.
+----
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h1 id="main-heading">Hello World</h1>
+    </body>
+</html>
+----
+
+* Start `serve` on the created folder
+** E.g. `serve .`
+
+* Open the browser in `http://localhost:3000` (confirm port on the information produced by serve).
+** Observe result in browser.
+** Open the browser's development tools and observe the network requests.
+** Notice how a `GET` to `/` returns the content of `index.html` in the response message body.
+** Rename the HTML file to `index2.html` and see the result in the browser.
+*** Notice how the `index.html` has a special meaning to the *server*. What is this "special meaning"?
+*** Does it have a special meaning to the browser?
+** Rename the HTML file back to `index.html`.
+* Change the address to `http://localhost:3000/index.html` and observe the result.
+* Create a file `s1.js` with
+----
+console.log("I'm s1")
+const mainHeading = document.getElementById("main-heading")
+console.log(mainHeading)
+const something = "hello"
+console.log(something)
+----
+* Add `<script src="s1.js"></script>` to the HTML file `head` element.
+** Observe the result in the console.
+** What is `document`?
+** What does `document.getElementById("main-heading")` do?
+** Why is `console.log(mainHeading)` presenting  `null`?
+* Create a file `s2.js` with
+----
+console.log("I'm s2")
+const something = "world"
+console.log(something)
+----
+* Add `<script src="s2.js"></script>` to the HTML file `head` element.
+** Observe the result of reloading the HTML document.
+** Why is there an error in the console?
+* Add the attribute `type="module"` to the `script` element for `s1.js`.
+** What is the value presented for `console.log(mainHeading)`?
+** Does the previous error still exists? Why?
+
+== Javascript modules
+
+* Create a file `add.js` with
+----
+console.log("Look, I'm running in a browser")
+export function add(x,y){
+    return x + y;
+}
+----
+* Add `<script src="add.js"></script>` to the HTML file `head` element.
+** Observe the error in the console.
+** Remove `add.js` from `index.html`.
+
+* Add the following to the beginning of both `s1.js` and `s2.js`
+----
+import { add } from './add.js'
+console.log(add(1,2))
+----
+** Make sure that the loading of `s1.js` has the `"module"` type and the loading of `s2.js` does not.
+** What is the error occurring during the document loading and why does it happen?
+** Add the `"module"` type to the loading of `s2.js`.
+** Observe the output in the console.
+*** Is the error still occurring?
+*** Is the result of the call to `add` being shown correctly?
+*** How many times is `Look, I'm running in a browser` presented?
+** Observe all HTTP requests made by the browser?
+*** How many HTTP requests would there be if the application used `N` modules?

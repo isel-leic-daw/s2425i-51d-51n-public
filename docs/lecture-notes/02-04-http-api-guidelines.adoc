@@ -1,0 +1,73 @@
+= HTTP API design guidelines
+
+== Introduction
+
+Set of guidelines with recommendations and suggestions for the HTTP design process.
+
+== Ensure the HTTP protocol requirements
+
+The HTTP protocol defines a set of requirements on the defined concepts.
+Some examples are:
+
+* The semantics of the HTTP request methods.
+* The properties of the HTTP request methods, such as safety and idempotency.
+* The semantics of the HTTP response message status codes.
+* The semantics of the HTTP request, response, and content headers.
+
+An HTTP API must ensure that those requirements are fulfilled.
+Failure to do so may result in incorrect behavior, namely when there are intermediaries involved.
+
+A real production scenario will almost always include intermediaries, between the initial HTTP client and the final HTTP API servers.
+Those intermediaries, such as reverse-proxies, assume the requirements are fulfilled and have behavior that assumes them.
+ As an example, reverse-proxies may retries failed requests that use an idempotent method, such as `PUT`.
+If the HTTP API uses `PUT` in a non-idempotent way, such retry may have result in erroneous behavior, such as creation of duplicate resources.
+
+== Take advantage of the HTTP protocol semantic richness
+
+The HTTP protocol defines a set of application-level features that should be used by an HTTP API, when compatible requirements arise.
+A important reason is that those feature reflect mature and tested designs, frequently used in the production scenarios.
+
+An obvious feature is the the use of the `GET` method on operations that retrieve resource representations.
+While the use of a `POST` method would not violate any HTTP requirements, it would fail to take of an existing feature.
+
+Other examples include:
+
+* The use of the `Accept-*` headers to perform content negotiation, including language negotiation.
+** E.g. instead of inventing extra parameters, a client should be able to express the language preferences via the standard `Accept-Language`. 
+Similarly, the server should express the chosen language using the `Content-Language` standard header.
+
+* The use of the `Cache-Control` caching headers to express caching requirements by clients and caching properties by servers.
+** E.g. an interesting use case are the `stale-while-revalidate` and `stale-while-error` extensions, defined by link:https://www.rfc-editor.org/rfc/rfc5861.html[RFC 5861 - HTTP Cache-Control Extensions for Stale Content].
+
+* The use of the `Authorization` and `WWW-Authenticate` headers to convey or challenge for authentication and authorization information.
+** E.g. intermediaries know that an `Authorization` header conveys sensitive information and may automatically remove it from issued logs.
+
+== Identify and respect the limits of HTTP
+
+The HTTP protocol aims to be a generic protocol, without any ties to specific domains.
+It is important not to try to force domain specific semantics into HTTP constructs. 
+A frequent example is the use of specific HTTP status codes or HTTP headers to reflect domain specific behaviors, which breaks the uniform interface principle.
+
+Most frequently, the proper place to insert domain-specif functionality is in the format used by the representations.
+Namely, a significant part of an HTTP API design effort is in the design of representations format.
+
+
+Additional reading:
+
+* link:https://labs.pedrofelix.org/notes/http/how-to-fail[How to fail in HTTP APIs].
+* link:https://www.mnot.net/blog/2013/05/15/http_problem[Indicating Problems in HTTP APIs].
+* link:https://www.mnot.net/blog/2017/05/11/status_codes[How to Think About HTTP Status Codes].
+
+== Representation format design.
+
+* Take advantage of existing formats, such as link:https://datatracker.ietf.org/doc/html/rfc9457[Problem Details for HTTP APIs].
+** See the link:https://www.iana.org/assignments/media-types/media-types.xhtml[IANA media type registry].
+
+* When designing JSON-based representations:
+** Consider if a new media type should be used or even registered.
+** Design for extensibility.
+*** Do not use arrays as top-level values.
+*** When representing lists consider using directly an array or an object with an `items` property. The latter case allows for adding new information about the _thing_ being described (e.g. length, pagination), without a breaking change.
+
+* Create a vocabulary with the used terms.
+
