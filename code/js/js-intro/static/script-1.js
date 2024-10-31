@@ -1,0 +1,1 @@
+const name = "script-1"
