@@ -177,3 +177,74 @@
 == Lecture 14 - 2024-10-24
 
 * Project first phase presentations.
+
+== Lecture 15 - 2024-10-28
+
+* Introduction to the development of browser-based applications.
+* Introduction to the link:https://www.typescriptlang.org/[TypeScript] language.
+** Motivation and goals.
+** The TypeScript type system and type checking.
+*** Primitive types.
+*** Array types.
+*** Object types.
+*** Structural type systems vs. nominal type systems. Anonymous types.
+*** Function types.
+*** Type annotations on variables, constants, function parameters and function return.
+*** Generic types.
+*** Literal types
+*** Union types. Union types with discriminators.
+*** Intersection types.
+* Browser javascript loading and module systems.
+
+* Lecture resources:
+** link:https://www.typescriptlang.org/play/?#code/PTAEAcCcEsFtoC7QG4FNQIJ7lQZwFAiii4IwB2A5gDSjkCusARqpLUwPYcA2qAhuXwBjDuVKg+AZTLQqALhIyqoALygA5AAtU3bh3XDR4vgDlGLSAobNWq0ABYATADoADIbEIJAIS68BCpw8-OR2ZPSo+IRgACaoAGayspQY2Hj4WDig0hSUACppdqS5HsbkHAjakDnJCjVUBVlqUkqUUUR8kJB8mKk4BCKeEvWUAIJdPQrj3ZgAPMXJAHx2ANpaOnrqtOoA7hyQ3DHqALqlXqbmrNOToNdz1hbLaiuutACMtI6ng2V3APLxf7xEa4KYTOZ3eatRZPUArNbaXT6bZ7A5HY60NY8ACHWw0sHo5Bi+mOp2ioA4TAAVqghF5MukGdkEPQ4uQvGoAN50PiwVAKBZUADcdCYljol0goAAvmcJNxoEJ+czWah2XZOfhiORecr1KMFUqtlrReK3o4AMz2aj4WXk2QK8joJlxRLkRDQIzkgC0EnK5EwsA49FwfXQvsqzsKHHiGk4THUoGJeDoFVAmj4aAkPL5cvjCm5Or5AtaIvIYqskplGpNRb1BsVqGN2oroHNVptdqIjXQAnKCD4SC9RF9olAP3ORNAvAQctQAA9eeBeCXcnYAERUkOT0ALpe8dc+imheKEume0LgTq6hCsUMCGKgSCoFmQUIMgin8jnscE7gIAAKedKxsNhQEwECLAASkg2xNWIZ9X1CedQAAKnA212jAHJ6Dpehum4UAe2yTBSFQWBQGQXBnFAEwOHgHVCOIyRSNvWAMkKHscLwgjuEwABJNkkCEPhuDyDhRmkVV1S5HNlUFSgy1bB5bGlIU5XiLgFC48IeNEvjBLVYTRPEySWSEuxRMbdT8C-H9QmgXAAFFYHALAANkcB6AQAteCoSo5BUyBpRg0Agn8UJ4KfF98Ic8gvIQZw-MoSpVBUNR3FlRyXLczAAPXPhFFydcoPwbLXPclY3mOUrytygCVhq8knIAJRav4WtAOr3LeUryQAMTPId3zSAgmRGAAFZ8YkVQd0DUADilXZIoNUZZwpCOVuswP5IDMXQ6laKbUBmkTbzsOzhsWshVqixDYqKpK1RSzQ0oyzDyQAcTVVhFTDMbCmO065tmPJYQ8+LvO01aVHWvxNonLrcD+GIYgUIHZtvWYgthS6LwhhLbpNe631oyVnEc-j2VQShWAJ7zVoAMkZrrIa8ABSUBHDetsPqIABVd0xw-DisjMUDdpGOwgtAAAfIrklsoaLyTDhJHol9NGSAC62WqhaGQUSIgUcWLEl1oieIaB4gAhkY0oo35vSjQFPUS3iFAIhZAwLXQzFAQhFegADTzvKD9M+FDJkg4U8OI19pHx30k6wx5LoOB2RWPeipDQCDgASTk62lDdC8N7gImldcg5NEudFwdAouIL33wT-3v2D0OEHDjMo8KIOgrjn3HMTkTdBTpkdXTzOqBNBCYtJgui91Eu1ELgBZQdNGcSBgyJADy4iKDpRr4hZRL8lTdYAEpZHgRQEJFWGRowWn9GiRnz6WbdF6EMU8z1Kk9Oi7xnpQZwWFQAABlECsFEv9UW6AWopzUOuaa65PZgB2L2T+rokjKEKuoBkiYHypnOA7Cu6B9gOxgHwJgvAaJ5G0MePiEAOC4FwNAOh6BD7oE0lKAA+jw3A-CKSxkqCPJkI9UEnXXOAogiMRB6HFEgx8KC6ERHQRGbAyRdzp0gHKRR+wFAqI3GgiBAB1TQvQR64Fwq9Qq4jlB-1PNwAA-Ag0AU04CdEwAAYR4FQtQ6hpqJnluoSgz41ShLjBQgwECAAieAhAwAYnNR8j9hajQ8f1F8gckG2P-HYfA8tuQAGtZBow0E6BAqJSnelYLvSAeIGlGNAE5PRsoSmgHKUSBQWgEAIHAN6Z8uBwBGCbLQUgg4QywWClEPGY5iSjH7FURh2sRn0H-AoHJCA8l4E2Qgd2uAAGB1AABDZ-5nA9JiO7YgIkG5VJfLU+pej1AFjnh7IgQDp4Tw4KATk1yFDrmqc8lpkB1y0DBQodpjTZTZzuUYYISUOCUHOfsy5YLnB8nYXwWmUF1LwrCs+PgpSCUezhR7e56B+mDOGXgMZYgmzvMJV8woU8QG-P+YC0A65NADKGSMhlDcIWKGmaCCUoEKXZx+EivQqKLmJSmSyXA+KPnEDFPwUlHyKXnwgfxMRVRsHoAySNfotBOjOkNfKXAfzZC3kgA3ey-13FMgABKR0gc9VKXJkoBQlRYWUTJfECEkFreIHJ-m4DDT5M5MNljIA4NAGIgbCjBvIKG62CBlkxHdbgT1lA+V2FzZ6-yr0WZpozeGqIiM+BvAUBW6N2bi000Lc8dQfA8TqATKcIgrV2qdURrgOtoAG2ZqbR6ltEb20JiiEAA[TypeScript Playground].
+** link:./exercises-and-guides/02-00-js-intro.adoc[Introduction to application loading].
+** link:./exercises-and-guides/02-01-ts-intro.adoc[Introduction to TypeScript].
+** link:./exercises-and-guides/02-02-ts-types.adoc[Exercise on TypeScript].
+
+== Lecture 16 - 2024-10-31
+
+* The build process on browser-based applications.
+** Linters and style checkers
+** Bundling multiple modules into a single file.
+*** An example using manual bundling.
+*** Introduction to the webpack bundling tool.
+** Overview of the pull build process setup and execution.
+** Development-time HTTP server and the webpack-dev-server.
+* Exercises.
+
+* Lecture resources:
+** link:./../code/js/js-intro[`js-intro` project].
+** link:./exercises-and-guides/02-00-js-intro.adoc[Introduction to application loading].
+** link:./exercises-and-guides/02-01-ts-intro.adoc[Introduction to TypeScript].
+** link:./exercises-and-guides/02-02-ts-types.adoc[Exercise on TypeScript].
+
+== Lecture 17 - 2024-11-04
+
+* Introduction to the link:https://react.dev[React library].
+** The browser's `document` object and the DOM (Document Object Model).
+** Defining the user interface through functions that map models into trees of DOM elements.
+** The problem with the mutation of an already existing DOM tree.
+** React's virtual DOM and the `React.createElement` function.
+** React's JSX syntax extension has an alternative way to use the `React.createElement` function.
+** Components as functions.
+** Creating components referring:
+*** primitive HTML elements and their properties.
+*** Components and their properties.
+
+* Lecture resources:
+** link:https://react.dev[React library].
+** link:../code/js/react-intro[react-intro]
+
+== Lecture 18 - 2024-11-07
+
+* Continuing the study of the link:https://react.dev[React library]
+** Stateful components and the link:https://react.dev/reference/react/useState[useState] _hook_.
+*** Example: a counter component.
+** Effectful components and the link:https://react.dev/reference/react/useEffect[useEffect] _hook_.
+*** Example: a stop watch component.
+*** Maintaining non-render state and the link:https://react.dev/reference/react/useRef[useRef] _hook_.
+
+* Lecture resources:
+** link:https://react.dev[React library].
+** link:../code/js/react-intro[react-intro]
