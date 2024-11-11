@@ -7,11 +7,8 @@ import { createRoot } from 'react-dom/client';
 // import { App } from './example-lecture-18-counter/App';
 // import { App } from './example-lecture-18-stopwatch/App';
 // import { Message } from './example-lecture-18/models';
-import { App } from './example-lecture-18-leic51n/App';
+// import { App } from './example-lecture-18-leic51n/App';
+import {App} from './example-lecture-19/App'
 
 const root = createRoot(document.getElementById('main-div'));
-let title = 0;
-setInterval(() => {
-  title += 1;
-  root.render(<App title={title} />);
-}, 1000);
+root.render(<App />);
