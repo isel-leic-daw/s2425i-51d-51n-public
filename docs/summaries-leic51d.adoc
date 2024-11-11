@@ -254,3 +254,16 @@
 * Lecture resources:
 ** link:https://react.dev[React library].
 ** link:../code/js/react-intro[react-intro]
+
+== Lecture 19 - 2024-11-11
+
+* link:https://react.dev/reference/react/hooks[React hooks]
+** State management and effect management.
+** Usage rules.
+** Triggering effects and the dependency array.
+* Communication between child and parent components.
+* Examples - application with a counter and a stopwatch.
+
+* Lecture resources:
+** link:https://react.dev[React library].
+** link:../code/js/react-intro[react-intro]
