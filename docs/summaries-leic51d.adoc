@@ -266,4 +266,15 @@
 
 * Lecture resources:
 ** link:https://react.dev[React library].
-** link:../code/js/react-intro[react-intro]
+** link:../code/js/react-intro[react-intro].
+
+== Lecture 20 - 2024-11-14
+
+* State management using states, actions, and reducers
+** The link:https://react.dev/reference/react/useReducer[useReducer] hook.
+** The link:https://react.dev/reference/react/useRef[useRef] hook to maintain state that isn't relevant for rendering.
+** Examples: a stopwatch and a component performing HTTP requests.
+
+* Lecture resources:
+** link:https://react.dev[React library].
+** link:../code/js/react-intro[react-intro].
