@@ -10,6 +10,7 @@ export function App() {
     }
     return (
         <div>
+            <p>Desired period is {observedPeriod}</p>
             <Counter title="The counter" onChange={handleChange}/>
             <Timer title="The timer" period={observedPeriod}/>
         </div>

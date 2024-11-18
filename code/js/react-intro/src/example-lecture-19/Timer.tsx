@@ -7,40 +7,32 @@ type TimerProps = {
 };
 
 export function Timer({ title, period }: TimerProps) {
+  console.log("render")  
   const [observedValue, setValue] = useState(0);
   const [observedIsRunning, setIsRunning] = useState(true);
   useEffect(() => {
-    // the effect function
-    console.log('setInterval');
+    if(!observedIsRunning) {
+        return
+    }
+    console.log("setInterval")
     const intervalId = setInterval(() => {
-      if (observedIsRunning) {
-        setValue(currValue => currValue + 1);
-      }
+      setValue(currValue => currValue + 1);
     }, period * 1000);
     return () => {
-      console.log('clearInterval');
-      clearInterval(intervalId);
-    };
+        console.log("clearInterval")
+        clearInterval(intervalId)
+    }
   }, [period, observedIsRunning]);
-  function handleResume() {
-    setIsRunning(true);
+  function handleClick() {
+    setIsRunning(!observedIsRunning)
   }
-  function handlePause() {
-    setIsRunning(false);
-  }
-  const resumeIsEnabled: boolean = observedIsRunning == false;
-  const pauseIsEnabled: boolean = observedIsRunning == true;
-  return (
+  const buttonText = observedIsRunning ? "stop" : "start"
+  return(
     <div>
-      <h2>{title}</h2>
-      <h3>{observedValue}</h3>
-      <button disabled={!resumeIsEnabled} onClick={handleResume}>
-        resume
-      </button>
-      <button disabled={!pauseIsEnabled} onClick={handlePause}>
-        pause
-      </button>
-      <p>period: {period}</p>
+        <h2>{title}</h2>
+        <p>{observedValue}</p>
+        <p>Period is {period}</p>
+        <button onClick={handleClick}>{buttonText}</button>
     </div>
-  );
+  )
 }

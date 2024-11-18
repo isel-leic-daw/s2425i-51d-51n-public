@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer } from "react";
 
 // The State
 type State =
@@ -36,23 +35,22 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-// The props
-type FetchProps = {
-  url: string;
-};
-// The component
-export function Fetch({ url }: FetchProps) {
-  const [state, dispatch] = useReducer(reducer, { type: 'begin' });
+const firstState: State = { type: 'begin' };
+
+type UseFetchResult = State;
+
+export function useFetch(url: string): UseFetchResult {
+  const [state, dispatch] = useReducer(reducer, firstState);
   useEffect(() => {
     if (!url) {
       return;
     }
     let cancelled = false;
-    const abortController = new AbortController()
+    const abortController = new AbortController();
     async function doFetch() {
       dispatch({ type: 'start-loading', url: url });
       try {
-        const resp = await fetch(url, {signal: abortController.signal});
+        const resp = await fetch(url, { signal: abortController.signal });
         const json = await resp.json();
         if (!cancelled) {
           dispatch({ type: 'loading-success', url: url, payload: JSON.stringify(json, null, 2) });
@@ -67,28 +65,8 @@ export function Fetch({ url }: FetchProps) {
     doFetch();
     return () => {
       cancelled = true;
-      abortController.abort()
+      abortController.abort();
     };
   }, [url]);
-  switch (state.type) {
-    case 'begin':
-      return <p>Idle</p>;
-    case 'loading':
-      return <p>loading ...</p>;
-    case 'loaded':
-      return <textarea readOnly value={state.payload} rows={40} cols={80} />;
-    case 'error':
-      return <p>Error: {state.error.message}</p>;
-  }
+  return state
 }
-
-// |---------------- 10 ------------------------------>(dispatch(loading-success))
-//     |---2---->(dispatch(loading-success))
-//
-// start-loading delay/5
-// ...
-// start-loading delay/10
-// ...
-// loading-success (delay/5) -> state=loaded
-// ...
-// loading-success (delay/10) -> unexpected action

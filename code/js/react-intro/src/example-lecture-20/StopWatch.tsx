@@ -54,7 +54,7 @@ const initialState: State = {
   tickTimestamp: 0,
 };
 
-function clearTimer(ref: {current: NodeJS.Timeout}) {
+function clearTimer(ref: {current?: NodeJS.Timeout}) {
     const iid = ref.current
     if(iid) {
         console.log('clearInterval')
@@ -66,6 +66,7 @@ function clearTimer(ref: {current: NodeJS.Timeout}) {
 type StopWatchProps = {
   title: string;
 };
+const myRef = {current: undefined}
 export function StopWatch({ title }: StopWatchProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const intervalIdRef = useRef(undefined);
