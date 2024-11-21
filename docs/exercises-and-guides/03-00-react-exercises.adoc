@@ -7,7 +7,8 @@ Implement a component for the React library that accepts a property `f` of type 
 The component should also display a button that triggers the re-evaluation of the function `f` whenever clicked.
 This button should be disabled while the promise returned by the last evaluation has not yet been resolved.
 
-The component should respond to changes in the `f` property.
+The component should respond to changes in the `f`
+ property.
 
 == State with undo
 
