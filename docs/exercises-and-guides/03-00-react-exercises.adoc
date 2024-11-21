@@ -1,0 +1,35 @@
+= React exercises
+
+== Show promise fulfillment
+
+Implement a component for the React library that accepts a property `f` of type `()=>Promise<string>`` and displays either the fulfillment value or the rejection reason of the promise resulting from evaluating `f``.
+
+The component should also display a button that triggers the re-evaluation of the function `f`` whenever clicked.
+This button should be disabled while the promise returned by the last evaluation has not yet been resolved.
+
+The component should respond to changes in the `f`` property.
+
+== State with undo
+
+Implement the React hook function
+```
+useStateWithUndo<T>(initial: T): [observed: T, set: (T) => void, undo: () => void]
+```
+
+This hook is used to manage component state, returning an array with three elements: the current state value, a function to update the state value, and a function to set the state to its previous value (if there is no previous value, the current state remains unchanged).
+It is suggested to maintain a first in, last out list (i.e., a stack) to store previous state values for use by the undo function.
+
+== Periodic Fetcher [[periodic_fetcher]]
+
+Create a component for the React library that receives an URL and a time period, in milliseconds.
+When mounted, this component must periodically do an HTTP GET request to the provided URL. The result of the request should be presented in a `textarea`:
+
+* If the result was an HTTP response message, then the `textarea` must contain the response's body.
+* If the result was an exception, then the `textarea` must contain the exception text.
+
+The component should also show an indication if an HTTP request is pending or not.
+
+The component must react to changes in its properties.
+There must be at most one pending HTTP request at any time.
+
+Create an example usage of this component, by using a form with two `input` elements to collect the URL and the temporal period.
