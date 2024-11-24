@@ -300,6 +300,10 @@
 *** Child routes and the `Outlet` component.
 *** Internal application navigation without document reloading.
 ** Configuring the HTTP server to allow deep-linking.
+* Storing and communicating authentication tokens via cookies.
+** Token storage and token exfiltration via XSS.
+** Cookie storage and the `httpOnly` cookie attribute.
+** Other cookie attributes, namely `secure` and `SameSite`.
 * Example with:
 ** A context to store authentication state.
 ** A component requiring authentication.
