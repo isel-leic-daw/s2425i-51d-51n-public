@@ -54,6 +54,9 @@ class ChatService : NeedsShutdowm {
     }
 
     private fun keepAlive() = lock.withLock {
+        if (listeners.isEmpty()) {
+            return@withLock
+        }
         logger.info("keepAlive, sending to {} listeners", listeners.count())
         sendEventToAll(Event.KeepAlive(Clock.System.now()))
     }

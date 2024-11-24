@@ -1,0 +1,59 @@
+services:
+  ttt-postgres-tests:
+    container_name: ttt-postgres-tests
+    image: tic-tac-toe-postgres-test
+    environment:
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=changeit
+      - POSTGRES_DB=db
+    ports:
+      - 5432:5432
+
+  # ttt-jvm-1 and ttt-jvm-2 are used to illustrate scenarios with a fixed number of servers
+  # with static and well know names.
+  ttt-jvm-1:
+    container_name: ttt-jvm-1
+    hostname: ttt-jvm-1
+    image: tic-tac-toe-jvm
+    environment:
+      PORT: 8081
+      DB_URL: "jdbc:postgresql://db-tests:5432/db?user=dbuser&password=changeit"
+    ports:
+      - 8081:8081
+
+  ttt-jvm-2:
+    container_name: ttt-jvm-2
+    hostname: ttt-jvm-2
+    image: tic-tac-toe-jvm
+    environment:
+      PORT: 8082
+      DB_URL: "jdbc:postgresql://db-tests:5432/db?user=dbuser&password=changeit"
+    ports:
+      - 8082:8082
+
+  # ttt-jvm-dynamic is used to illustrate scenarios with a dynamic number of servers
+  # without static and well know names.
+  # We will use docker compose scaling to create multiple instances of this service
+  ttt-jvm-dynamic:
+    image: tic-tac-toe-jvm
+    hostname: ttt-jvm-dynamic
+    environment:
+      PORT: 8080
+      DB_URL: "jdbc:postgresql://db-tests:5432/db?user=dbuser&password=changeit"
+
+  # The service running the load-balancer
+  nginx:
+    container_name: ttt-nginx
+    image: tic-tac-toe-nginx
+    ports:
+      - 8080:8080
+      - 8088:8088
+    depends_on:
+      - ttt-jvm-1
+      - ttt-jvm-2
+
+  # Just a machine running ubuntu, with 'dig' installed so that we can observe the docker compose environment.
+  ubuntu:
+    container_name: ubuntu
+    image: tic-tac-toe-ubuntu
+    tty: true

@@ -53,3 +53,59 @@ tasks.test {
 kotlin {
     jvmToolchain(21)
 }
+
+/**
+ * Docker related tasks
+ */
+task<Copy>("extractUberJar") {
+    dependsOn("assemble")
+    // opens the JAR containing everything...
+    from(zipTree(layout.buildDirectory.file("libs/host-$version.jar").get().toString()))
+    // ... into the 'build/dependency' folder
+    into("build/dependency")
+}
+
+val dockerImageTagJvm = "tic-tac-toe-jvm"
+val dockerImageTagNginx = "tic-tac-toe-nginx"
+val dockerImageTagPostgresTest = "tic-tac-toe-postgres-test"
+val dockerImageTagUbuntu = "tic-tac-toe-ubuntu"
+
+task<Exec>("buildImageJvm") {
+    dependsOn("extractUberJar")
+    commandLine("docker", "build", "-t", dockerImageTagJvm, "-f", "tests/Dockerfile-jvm", ".")
+}
+
+task<Exec>("buildImageNginx") {
+    commandLine("docker", "build", "-t", dockerImageTagNginx, "-f", "tests/Dockerfile-nginx", ".")
+}
+
+task<Exec>("buildImagePostgresTest") {
+    commandLine(
+        "docker",
+        "build",
+        "-t",
+        dockerImageTagPostgresTest,
+        "-f",
+        "tests/Dockerfile-postgres-test",
+        "../repository-jdbi",
+    )
+}
+
+task<Exec>("buildImageUbuntu") {
+    commandLine("docker", "build", "-t", dockerImageTagUbuntu, "-f", "tests/Dockerfile-ubuntu", ".")
+}
+
+task("buildImageAll") {
+    dependsOn("buildImageJvm")
+    dependsOn("buildImageNginx")
+    dependsOn("buildImagePostgresTest")
+    dependsOn("buildImageUbuntu")
+}
+
+task<Exec>("allUp") {
+    commandLine("docker", "compose", "up", "--force-recreate", "-d")
+}
+
+task<Exec>("allDown") {
+    commandLine("docker", "compose", "down")
+}
