@@ -278,3 +278,31 @@
 * Lecture resources:
 ** link:https://react.dev[React library].
 ** link:../code/js/react-intro[react-intro].
+
+== Lecture 21 - 2024-11-18
+* link:https://react.dev/learn/passing-data-deeply-with-context[React context].
+** Sharing information between component mounts without using properties.
+** Creating contexts and exposing their functionality via a provider and a custom hook.
+** Example: reading and setting the language.
+* linkhttps://react.dev/learn/reusing-logic-with-custom-hooks#custom-hooks-sharing-logic-between-components[Custom hooks].
+** Extracting and sharing logic between components via hook functions.
+** Example: a hook function to perform HTTP requests, extracted from the component developed in the previous lecture.
+* Introduction to client-side routing.
+** The browser link:https://developer.mozilla.org/en-US/docs/Web/API/History_API[history API].
+
+== Lecture 22 - 2024-11-21
+* Client-side routing.
+** The browser link:https://developer.mozilla.org/en-US/docs/Web/API/History_API[history API].
+** The link:https://reactrouter.com/[React Router library]
+*** Route definition via paths and elements.
+*** The router provider.
+*** Template paths and path parameters.
+*** Child routes and the `Outlet` component.
+*** Internal application navigation without document reloading.
+** Configuring the HTTP server to allow deep-linking.
+* Example with:
+** A context to store authentication state.
+** A component requiring authentication.
+** A form-based component to perform authentication.
+** Automatic navigation to and from the authentication component, with history re-writing.
+* link:exercises-and-guides/03-00-react-exercises.adoc[Exercises].
