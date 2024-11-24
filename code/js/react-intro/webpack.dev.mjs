@@ -3,7 +3,7 @@ import { server } from "typescript";
 export default {
     mode: 'development',
     devServer: {
-      historyApiFallback: false,
+      historyApiFallback: true,
     },
     resolve: {
       extensions: ['.js', '.ts', '.tsx'],
