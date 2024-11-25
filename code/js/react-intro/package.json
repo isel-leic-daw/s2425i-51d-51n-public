@@ -6,13 +6,13 @@
   "scripts": {
     "build": "webpack build --config webpack.prod.mjs",
     "start": "webpack serve --config webpack.dev.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "check-lint": "eslint src",
     "check-style": "prettier --check src"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@playwright/test": "^1.49.0",
     "@types/node": "^20.10.0",
     "@types/react": "^18.2.35",
     "@types/react-dom": "^18.2.14",
