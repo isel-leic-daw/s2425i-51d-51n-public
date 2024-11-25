@@ -18,6 +18,9 @@ jobs:
           DB_URL: ${{ secrets.DB_URL }}
         run: ./code/jvm/gradlew -p code/jvm check --info
   test-fe:
+    defaults:
+      run:
+        working-directory: ./code/js/react-intro
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
