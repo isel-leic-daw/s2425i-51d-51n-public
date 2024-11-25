@@ -2,6 +2,9 @@ import { server } from "typescript";
 
 export default {
     mode: 'development',
+    entry: {
+      main: './src/index.ci.tsx'
+    },
     devServer: {
       historyApiFallback: true,
       port: 3000,

@@ -6,8 +6,11 @@
   "scripts": {
     "build": "webpack build --config webpack.prod.mjs",
     "start": "webpack serve --config webpack.dev.mjs",
+    "start-ci": "webpack serve --config webpack.ci.mjs",
     "check-lint": "eslint src",
-    "check-style": "prettier --check src"
+    "check-style": "prettier --check src",
+    "test": "npx playwright test",
+    "test-report": "npx playwright show-report"
   },
   "author": "",
   "license": "ISC",
