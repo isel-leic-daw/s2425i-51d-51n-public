@@ -310,3 +310,30 @@
 ** A form-based component to perform authentication.
 ** Automatic navigation to and from the authentication component, with history re-writing.
 * link:exercises-and-guides/03-00-react-exercises.adoc[Exercises].
+
+== Lecture 23 - 2024-11-25
+
+* Load balancing
+** Improving performance via horizontal scaling.
+** High availability by using multiple nodes.
+** Balancing policies, such as "round-robing".
+** Service discovery.
+** Retry policies.
+** Analysis of an example using link: https://www.nginx.com[nginx].
+
+== Lecture 24 - 2024-11-28
+
+* Testing the User Interface (UI).
+** Browser automation and the link:https://www.w3.org/TR/webdriver2/[WebDriver interface].
+** The link:https://playwright.dev[Playwright] library for UI testing.
+** Example - testing the login page.
+* Supporting the project development.
+
+== Lecture 25 - 2024-12-02
+
+* Supporting the project development.
+
+== Lecture 26 - 2024-12-05
+
+* Supporting the project development.
+
