@@ -330,3 +330,19 @@
 == Lecture 26 - 2024-12-05
 
 * Supporting the project development.
+
+== Lecture 27 - 2024-12-09
+
+* Supporting the project development.
+
+== Lecture 28 - 2024-12-12
+
+* Supporting the project development.
+
+== Lecture 29 - 2024-12-16
+
+* Project demonstrations.
+
+== Lecture 30 - 2024-12-19
+
+* Project demonstrations.
